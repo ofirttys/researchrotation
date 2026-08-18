@@ -198,6 +198,16 @@
 
 .field-error{color:var(--danger); font-size:12px; margin-top:4px;}
 
+.pw-wrap{position:relative;}
+.pw-wrap input{padding-right:40px !important;}
+.pw-toggle{
+  position:absolute; right:4px; top:50%; transform:translateY(-50%);
+  width:30px; height:30px; display:flex; align-items:center; justify-content:center;
+  background:none; border:none; padding:0; cursor:pointer; color:var(--muted); border-radius:6px;
+}
+.pw-toggle:hover{color:var(--primary); background:rgba(20,108,108,.08);}
+.pw-toggle svg{width:18px; height:18px;}
+
 .loading-overlay{
   position:fixed; inset:0; background:rgba(255,255,255,.6); z-index:300;
   display:none; align-items:center; justify-content:center; font-size:13px; color:var(--primary-dark); font-weight:600;
