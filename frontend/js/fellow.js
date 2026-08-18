@@ -88,6 +88,18 @@ const Fellow = (() => {
     document.getElementById('changePasswordForm').addEventListener('submit', submitChangePassword);
   }
 
+  // Clears the password-change form and any leftover error banner. Since
+  // this is a single-page app, "leaving" the Account Settings page doesn't
+  // reload anything — without this, a failed attempt's typed values and
+  // error message would sit in the DOM indefinitely and reappear on the
+  // next visit (even after logging out and back in as someone else on a
+  // shared computer), looking like a fresh failure that never happened.
+  function resetAccountForm() {
+    const form = document.getElementById('changePasswordForm');
+    if (form) form.reset();
+    UI.showError('pwChangeError', '');
+  }
+
   function bindReportEvents() {
     document.getElementById('fellowGenerateReportBtn').addEventListener('click', async () => {
       UI.loading(true, 'Building your PDF report…');
@@ -107,5 +119,5 @@ const Fellow = (() => {
     bindReportEvents();
   }
 
-  return { loadDashboard, renderDashboard, bindAll };
+  return { loadDashboard, renderDashboard, bindAll, resetAccountForm };
 })();

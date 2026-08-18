@@ -28,6 +28,10 @@ function enterApp(user) {
   // here from the login response so it's correct even before any dashboard load.
   document.getElementById('accountUsername').value = user.username;
   document.getElementById('accountEmail').value = user.email;
+  // Always start with a clean password form and no leftover error, in case
+  // a previous session on this browser (this user or someone else on a
+  // shared computer) left a failed attempt sitting in the DOM.
+  Fellow.resetAccountForm();
 
   if (user.role === 'admin') {
     document.getElementById('nav-fellow').style.display = 'none';
@@ -66,6 +70,7 @@ async function submitLogin(e) {
 async function logout() {
   try { await Api.logout(); } catch (e) { /* best-effort */ }
   Session.clear();
+  Fellow.resetAccountForm();
   showLogin();
 }
 
@@ -78,6 +83,7 @@ function bindNav() {
       if (page === 'admin-admins') Admin.loadAdminsList();
       if (page === 'admin-reports') Admin.loadFellowsList();
       if (page === 'fellow-dashboard') Fellow.loadDashboard();
+      if (page === 'fellow-account') Fellow.resetAccountForm();
     });
   });
   document.getElementById('logoutBtn').addEventListener('click', logout);
@@ -85,6 +91,7 @@ function bindNav() {
 
 document.addEventListener('DOMContentLoaded', () => {
   UI.bindGlobalHandlers();
+  UI.enablePasswordToggles();
   Projects.bind();
   Fellow.bindAll();
   Admin.bindAll();
