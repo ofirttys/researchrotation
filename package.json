@@ -1,0 +1,8 @@
+{
+  "name": "research-rotation-tracker",
+  "version": "1.0.0",
+  "description": "UofT GREI Fellowship Program — Research Rotation Tracker",
+  "dependencies": {
+    "pdfkit": "^0.15.0"
+  }
+}

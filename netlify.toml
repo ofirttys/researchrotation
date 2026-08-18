@@ -1,0 +1,18 @@
+[build]
+  publish = "frontend"
+  functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
+
+# pdfkit reads its standard-font metrics from disk at runtime; esbuild only
+# bundles files that are `require()`d directly, so these must be included
+# explicitly or PDF generation will fail in production with a "font not found"
+# error even though it works locally.
+[functions."generate-report"]
+  included_files = ["node_modules/pdfkit/js/data/**"]
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Access-Control-Allow-Origin = "*"
