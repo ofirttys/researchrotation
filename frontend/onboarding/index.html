@@ -201,6 +201,43 @@ dl.gl dd{margin:0}
 .filters input,.filters select{border-color:color-mix(in srgb,var(--ink) 28%,var(--line));box-shadow:inset 0 1px 2px rgba(28,38,64,.06)}
 .filters input:focus,.filters select:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
 @media (prefers-reduced-motion:reduce){.pager button:hover{transform:none}}
+
+/* fixed header + right timeline panel */
+:root{--panel:280px}
+header.hero{position:sticky;top:env(safe-area-inset-top,0px);z-index:8;background:var(--bg);padding-block:16px 14px;margin-bottom:30px;border-bottom:1px solid var(--line)}
+.hero .org{font-size:12.5px;line-height:1.45}
+.hero h1{font-size:28px;line-height:1.15;margin:6px 0 4px}
+.hero .who{display:flex;flex-wrap:wrap;gap:2px 20px;font-size:14.5px}
+.hero .who .pc{color:var(--muted)}
+.cyclepanel{position:fixed;top:0;right:0;bottom:0;width:var(--panel);background:var(--surface);border-left:1px solid var(--line);padding:26px 20px 24px;overflow-y:auto;z-index:9}
+.cyclepanel .ph{font:600 18px/1.3 var(--serif);margin:0 0 4px}
+.cyclepanel .status{font-size:13.5px;color:var(--muted);margin:0 0 14px}
+.cyclepanel .status strong{color:var(--ink);font-weight:600}
+.cyclepanel .weeks{display:grid;grid-template-columns:1fr;gap:6px}
+.cyclepanel .wk{min-height:0;background:var(--bg)}
+.cyclepanel .wk.past{background:var(--ok-soft)}
+.cyclepanel .wk.now{background:var(--accent)}
+.cyclepanel .key{display:flex;font-size:12.5px;color:var(--muted);margin-top:8px}
+.cyclepanel .key i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--meet);margin-right:6px}
+.today{margin-top:22px;padding-top:16px;border-top:1px solid var(--line)}
+.today h3{font:600 16px/1.3 var(--serif);margin:0 0 2px}
+.today .sub{font-size:12.5px;color:var(--muted);margin:0 0 6px}
+.today .h{font-size:12px;color:var(--muted);margin:10px 0 2px;font-variant-numeric:tabular-nums}
+.today .none{font-size:13.5px;color:var(--muted)}
+.content{margin-right:var(--panel)}
+footer.site{max-width:780px}
+@media (max-width:1199px){
+  .content{margin-right:0}
+  .cyclepanel{position:static;width:auto;background:transparent;border:0;padding:0 0 26px;overflow:visible;max-width:880px}
+  .cyclepanel .weeks{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .cyclepanel .wk{background:var(--surface)}
+  .today{display:none}
+}
+@media (max-width:860px){
+  header.hero{position:static;border-bottom:0;margin-bottom:6px;padding-block:22px 6px}
+  .hero h1{font-size:26px}
+  .cyclepanel{padding-bottom:18px}
+}
 </style>
 
 <nav class="side" aria-label="Sections">
@@ -219,13 +256,16 @@ dl.gl dd{margin:0}
 <header class="hero">
   <p class="org">Division of Reproductive Endocrinology and Infertility, Department of Obstetrics and Gynaecology, University of Toronto<br>Mount Sinai Fertility, Sinai Health</p>
   <h1>REI Research onboarding</h1>
-  <p class="who">Andrea Macanović, Clinical Research Assistant<br><span>Preceptors: Swati Dixit, Dr. Jennia Michaeli</span></p>
-  <div class="cycle">
-    <p class="status" id="cyclestatus"></p>
-    <div class="weeks" id="weeks"></div>
-    <div class="key"><span><i></i>Milestone: mid-point review, methodology course, final sign-off</span></div>
-  </div>
+  <p class="who"><span>Andrea Macanović, Clinical Research Assistant</span><span class="pc">Preceptors: Swati Dixit, Dr. Jennia Michaeli</span></p>
 </header>
+
+<aside class="cyclepanel" aria-label="Onboarding timeline">
+  <h2 class="ph">Onboarding timeline</h2>
+  <p class="status" id="cyclestatus"></p>
+  <div class="weeks" id="weeks"></div>
+  <div class="key"><span><i></i>Milestone week</span></div>
+  <div class="today" id="today"></div>
+</aside>
 
 <main>
 <div class="mobnav"><div class="row"><label for="mobsel">Section</label><span id="pct2">0%</span></div><select id="mobsel"></select><div class="bar"><b id="barfill2"></b></div></div>
@@ -999,6 +1039,16 @@ function slug(s){return s.replace(/[^a-z0-9]+/gi,"-").toLowerCase()}
     const past=today>P(w.e)&&i!==cur, now=i===cur;
     return `<div class="wk${past?" past":""}${now?" now":""}"${now?' aria-current="step"':""}>${w.m?'<span class="ms" title="Milestone"></span>':""}<div class="wn">${w.n}</div><div class="wd">${w.d}</div><div class="wf">${w.f}</div></div>`;
   }).join("");
+  // today's (or next) schedule items
+  const all=[]; W.forEach(w=>w.days.forEach(d=>{ if(!d.off) all.push(d); }));
+  const MO={Sep:8,Oct:9,Nov:10}; const dt=d=>{const [m,dd]=d.n.split(" ");return new Date(2026,MO[m],Number(dd));};
+  let pick=all.find(d=>dt(d).getTime()===today.getTime()), label="Today";
+  if(!pick){ pick=all.find(d=>dt(d)>today); label=pick?"Next scheduled day":""; }
+  const T=document.getElementById("today");
+  if(!pick){ T.innerHTML='<h3>Today</h3><p class="none">The onboarding schedule is complete.</p>'; return; }
+  const full=dt(pick).toLocaleDateString("en-CA",{weekday:"long",month:"long",day:"numeric"});
+  const blk=(items,h,key)=>`<div class="h">${h}</div>`+items.map((it,ii)=>{const id=`sc-${slug(pick.n)}-${key}${ii}`;return `<label class="it ${it[0]}"><input type="checkbox" data-mirror="${id}"><span class="k">${esc(it[1])}<a href="#${it[2]}" title="Go to section">§${it[2].slice(1)}</a></span></label>`}).join("");
+  T.innerHTML=`<h3>${label}</h3><p class="sub">${full}</p>`+blk(pick.am,"08:00–12:00","a")+blk(pick.pm,"13:00–16:00","p");
 })();
 
 // ---------- navigation ----------
@@ -1030,10 +1080,12 @@ show(start||"s1",false);
 
 // ---------- progress (shared via db when available, else this browser) ----------
 const boxes=[...document.querySelectorAll("input[type=checkbox][data-id]")];
+const mirrors=[...document.querySelectorAll("input[type=checkbox][data-mirror]")];
 let state={}, db=null, docRef=null, writing=Promise.resolve();
 function paint(){
   let done=0;
   boxes.forEach(b=>{const v=!!(state[b.dataset.id]&&state[b.dataset.id].done); b.checked=v; b.closest("label").classList.toggle("done",v); if(v) done++;});
+  mirrors.forEach(b=>{const v=!!(state[b.dataset.mirror]&&state[b.dataset.mirror].done); b.checked=v; b.closest("label").classList.toggle("done",v);});
   const pct=Math.round(done*100/boxes.length);
   document.getElementById("pct").textContent=pct+"%";
   document.getElementById("barfill").style.width=pct+"%";
@@ -1044,8 +1096,8 @@ function paint(){
 try{ state=JSON.parse(localStorage.getItem("rei-onb-state")||"{}")||{} }catch(e){ state={} }
 paint();
 function setSync(team){const s=document.getElementById("sync"); s.classList.toggle("team",team); s.lastElementChild.textContent=team?"Progress shared with the team":"Progress saved in this browser";}
-boxes.forEach(b=>b.addEventListener("change",()=>{
-  const id=b.dataset.id, entry={done:b.checked, at:new Date().toISOString()};
+[...boxes,...mirrors].forEach(b=>b.addEventListener("change",()=>{
+  const id=b.dataset.id||b.dataset.mirror, entry={done:b.checked, at:new Date().toISOString()};
   state[id]=entry; paint();
   try{localStorage.setItem("rei-onb-state",JSON.stringify(state))}catch(e){}
   if(docRef){
