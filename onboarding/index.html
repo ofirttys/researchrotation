@@ -1,0 +1,994 @@
+<title>REI Research Onboarding</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#F3F6F6; --surface:#FFFFFF; --ink:#16262B; --muted:#55676C; --line:#D5DFDF;
+  --accent:#0B6B6F; --accent-ink:#FFFFFF; --accent-soft:#E0EFEE;
+  --flag:#8A5A12; --flag-soft:#FBF0DB; --ok:#2C7A4B; --ok-soft:#E3F2E8;
+  --meet:#5A3F8C; --meet-soft:#EEE8F7;
+  --serif:"Literata",Georgia,"Times New Roman",serif;
+  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --bg:#0D1618; --surface:#142124; --ink:#E2ECEC; --muted:#98ABAE; --line:#27393C;
+    --accent:#5CC2BC; --accent-ink:#0D1618; --accent-soft:#17363A;
+    --flag:#E7B25A; --flag-soft:#382B13; --ok:#6CC592; --ok-soft:#173326;
+    --meet:#B9A2E6; --meet-soft:#2A2340;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --bg:#0D1618; --surface:#142124; --ink:#E2ECEC; --muted:#98ABAE; --line:#27393C;
+  --accent:#5CC2BC; --accent-ink:#0D1618; --accent-soft:#17363A;
+  --flag:#E7B25A; --flag-soft:#382B13; --ok:#6CC592; --ok-soft:#173326;
+  --meet:#B9A2E6; --meet-soft:#2A2340;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans);margin:0}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1240px;margin:0 auto;padding-inline:24px;gap:40px}
+header.top{max-width:1240px;margin:0 auto;padding:28px 24px 8px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:flex-end;justify-content:space-between}
+.top .eyebrow{font:500 12px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.top h1{font:600 30px/1.2 var(--serif);margin:4px 0 0;text-wrap:balance}
+.top .meta{font:13px/1.5 var(--sans);color:var(--muted);text-align:right}
+.sync{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
+.sync i{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block}
+.sync.team i{background:var(--ok)}
+nav.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;padding-block:16px 32px;max-height:calc(100vh - 32px);overflow:auto}
+.prog{margin-bottom:18px}
+.prog .lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;font-variant-numeric:tabular-nums}
+.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.bar b{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+nav.side ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:s}
+nav.side li a{display:grid;grid-template-columns:26px 1fr;gap:6px;padding:7px 10px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:14px;line-height:1.35}
+nav.side li a span.n{font:500 12px/1.6 var(--mono);color:var(--muted)}
+nav.side li a:hover{background:var(--accent-soft)}
+nav.side li a[aria-current="true"]{background:var(--accent);color:var(--accent-ink)}
+nav.side li a[aria-current="true"] span.n{color:var(--accent-ink)}
+.mobnav{display:none}
+main{padding-block:16px 64px;min-width:0}
+section.pg{max-width:780px}
+section.pg[hidden]{display:none}
+.pg h2{font:600 28px/1.25 var(--serif);margin:0 0 6px;text-wrap:balance}
+.pg .kicker{font:500 12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+.pg h3{font:600 19px/1.3 var(--serif);margin:32px 0 8px;text-wrap:balance}
+.pg h4{font:600 15px/1.4 var(--sans);margin:20px 0 6px}
+.pg p,.pg li{max-width:68ch}
+.pg ul,.pg ol{padding-left:22px}
+.pg li{margin:4px 0}
+.lede{font-size:17px;color:var(--ink)}
+.muted{color:var(--muted)}
+.tbc{display:inline-block;font:500 11px/1.6 var(--sans);letter-spacing:.04em;text-transform:uppercase;background:var(--flag-soft);color:var(--flag);padding:0 7px;border-radius:4px;vertical-align:1px;white-space:nowrap}
+code,.reb{font:500 13px/1.4 var(--mono);background:var(--accent-soft);color:var(--ink);padding:1px 6px;border-radius:4px;white-space:nowrap}
+.callout{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:16px 20px;margin:20px 0}
+.callout.key{border-color:var(--accent);background:var(--accent-soft)}
+.callout h4{margin-top:0}
+.sig{font:italic 500 17px/1.4 var(--serif);margin-top:24px}
+.tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
+th{font:600 12px/1.4 var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+tr:last-child td{border-bottom:0}
+.steps{counter-reset:st;list-style:none;padding-left:0}
+.steps li{counter-increment:st;display:grid;grid-template-columns:30px 1fr;gap:8px;margin:8px 0}
+.steps li::before{content:counter(st);font:500 13px/24px var(--mono);width:24px;height:24px;text-align:center;border-radius:50%;background:var(--accent-soft);color:var(--accent)}
+.journey{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px;padding:0;list-style:none}
+.journey li{font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin:0}
+.journey li:not(:last-child)::after{content:"→";margin-left:10px;color:var(--muted)}
+.ready{margin-top:36px;border-top:2px solid var(--accent);padding-top:14px}
+.ready h4{margin:0 0 8px;font:600 13px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
+.chk{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;margin:6px 0;cursor:pointer}
+.chk input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
+.chk.done span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:40px;flex-wrap:wrap}
+.pager button{font:500 14px/1.3 var(--sans);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;max-width:48%}
+.pager button:hover{border-color:var(--accent)}
+.pager button[hidden]{display:none}
+/* studies */
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
+.filters input,.filters select{font:14px var(--sans);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0}
+.filters input{flex:1 1 220px}
+.pill{display:inline-block;font:500 11.5px/1.7 var(--sans);padding:0 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill.pros{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
+.pill.qi{background:var(--meet-soft);border-color:transparent;color:var(--meet)}
+.pill.tc{background:var(--flag-soft);border-color:transparent;color:var(--flag)}
+.count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+/* schedule */
+.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--muted);margin:10px 0 4px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
+.week{margin-top:28px}
+.week h3{margin-bottom:2px}
+.week .wsub{font-size:14px;color:var(--muted);margin:0 0 8px}
+.day{display:grid;grid-template-columns:110px 1fr 1fr;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:8px 0;overflow:hidden}
+.day .dd{padding:10px 12px;border-right:1px solid var(--line);background:var(--bg)}
+.day .dd b{display:block;font:600 15px/1.2 var(--serif)}
+.day .dd small{font:12px/1.4 var(--mono);color:var(--muted)}
+.day .blk{padding:8px 12px}
+.day .blk + .blk{border-left:1px solid var(--line)}
+.day .blk .h{font:500 11px/1.5 var(--mono);color:var(--muted);letter-spacing:.04em}
+.day.off{opacity:.75}
+.day.off .blk{grid-column:2 / 4;font-style:italic;color:var(--muted);padding:12px}
+.it{display:grid;grid-template-columns:20px 1fr;gap:6px;align-items:start;margin:5px 0;font-size:13.5px;line-height:1.45}
+.it input{width:16px;height:16px;margin:2px 0 0;accent-color:var(--accent)}
+.it .k{border-left:3px solid var(--line);padding-left:7px}
+.it.meet .k{border-color:var(--meet)}
+.it.shadow .k{border-color:var(--accent)}
+.it.train .k{border-color:var(--ok)}
+.it.read .k{border-color:var(--muted)}
+.it.course .k{border-color:var(--flag)}
+.it .k a{font:500 11.5px var(--mono);text-decoration:none;margin-left:4px}
+.it.done .k{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
+.standing{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
+.standing div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px}
+.standing div b{display:block;font:500 12px/1.5 var(--mono);color:var(--accent)}
+.signoff{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.signoff .callout{margin:0}
+dl.gl{display:grid;grid-template-columns:minmax(90px,max-content) 1fr;gap:6px 18px;margin:12px 0}
+dl.gl dt{font:500 13.5px/1.6 var(--mono);color:var(--accent)}
+dl.gl dd{margin:0}
+@media (max-width:860px){
+  .wrap{grid-template-columns:minmax(0,1fr);padding-inline:16px;gap:0}
+  header.top{padding-inline:16px}
+  .top .meta{text-align:left}
+  nav.side{display:none}
+  .mobnav{display:block;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+  .mobnav select{width:100%;font:15px var(--sans);padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+  .mobnav .bar{margin-top:8px}
+  .day{grid-template-columns:1fr}
+  .day .dd{border-right:0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:baseline}
+  .day .blk + .blk{border-left:0;border-top:1px solid var(--line)}
+  .day.off .blk{grid-column:auto}
+  .pg h2{font-size:24px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="top">
+  <div>
+    <div class="eyebrow">Division of Reproductive Endocrinology &amp; Infertility · UofT ObGyn · Mount Sinai Hospital · Mount Sinai Fertility</div>
+    <h1>REI Research Onboarding</h1>
+  </div>
+  <div class="meta">Andrea Macanović, Clinical Research Assistant<br>September 29 – October 30, 2026 · Preceptors: Swati Dixit &amp; Dr. Jennia Michaeli<br><span class="sync" id="sync"><i></i><span>Progress saved in this browser</span></span></div>
+</header>
+
+<div class="wrap">
+<nav class="side" aria-label="Sections">
+  <div class="prog"><div class="lbl"><span>Onboarding progress</span><span id="pct">0%</span></div><div class="bar"><b id="barfill"></b></div></div>
+  <ol id="toc"></ol>
+</nav>
+
+<main>
+<div class="mobnav"><label for="mobsel" class="muted" style="font-size:12px">Section</label><select id="mobsel"></select><div class="bar"><b id="barfill2"></b></div></div>
+
+<!-- 1 -->
+<section class="pg" id="s1" data-title="Welcome">
+  <div class="kicker">Section 1</div>
+  <h2>Welcome to the REI Research Team, Andrea</h2>
+  <p class="lede">Welcome to the research team of the Division of Reproductive Endocrinology and Infertility (REI), Department of Obstetrics and Gynaecology, University of Toronto, at Mount Sinai Hospital and Mount Sinai Fertility. We're glad you're here.</p>
+  <p>Our physicians, fellows, embryologists and trainees run a large and varied research program: clinical trials, prospective cohort studies, chart reviews, qualitative work and quality-improvement projects. As a Clinical Research Assistant, you are what keeps this program running. You make sure patients are approached respectfully, consented properly and followed through their study visits, and that every study stays compliant, funded and well documented.</p>
+  <div class="callout key">
+    <h4>Your main focus: patient recruitment</h4>
+    <p style="margin:0">Most of your day-to-day work will be identifying, contacting, consenting and enrolling participants in our prospective studies, and coordinating their visits and samples with clinic staff. You'll also learn our REB, finance, legal and IT processes, so you can support the team and step in when needed.</p>
+  </div>
+  <p><strong>Your preceptors will be Swati Dixit and Dr. Michaeli.</strong> Swati is your first contact for day-to-day questions. Both of us will review your progress and sign off on your onboarding checklist.</p>
+  <h3>Your onboarding at a glance</h3>
+  <div class="tw"><table>
+    <tr><th>Week</th><th>Dates</th><th>Focus</th></tr>
+    <tr><td>1</td><td>Sep 29 – Oct 2</td><td>Orientation, accounts and access, mandatory training, meeting the team</td></tr>
+    <tr><td>2</td><td>Oct 5 – 9</td><td>Shadowing Swati on recruitment and study visits; introduction to the study portfolio</td></tr>
+    <tr><td>3</td><td>Oct 13 – 16</td><td>Leading recruitment tasks under supervision; REB processes and the study tracker</td></tr>
+    <tr><td>4</td><td>Oct 19 – 23</td><td>Recruiting more independently; finance, agreements and systems</td></tr>
+    <tr><td>5</td><td>Oct 26 – 30</td><td>Health Research Methodology course (Oct 28 – 30) and final sign-off</td></tr>
+  </table></div>
+  <p>You'll also meet one-on-one with our physicians during these weeks to learn about their research and the studies you'll support.</p>
+  <h3>How to use this package</h3>
+  <p>Use the sidebar to move between sections. Each section ends with a short <em>"You're ready when…"</em> checklist. <a href="#s15">Section 15</a> is your day-by-day schedule, and every item links to the section it covers. Tick items off as you finish them and review them with your preceptors at your weekly check-ins.</p>
+  <p class="sig">Dr. Jennia Michaeli</p>
+  <div class="ready" data-ready="s1"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s1-r1"><span>You've read this welcome and know who your preceptors are.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s1-r2"><span>You've opened the schedule (Section 15) and know what your first week looks like.</span></label>
+  </div>
+</section>
+
+<!-- 2 -->
+<section class="pg" id="s2" data-title="Who we are" hidden>
+  <div class="kicker">Section 2</div>
+  <h2>Who we are: the REI Division</h2>
+  <p class="lede">The Division of Reproductive Endocrinology and Infertility is part of the University of Toronto Department of Obstetrics and Gynaecology. Its clinical and research home is Mount Sinai Fertility (MSF) at Mount Sinai Hospital (Sinai Health), with satellite clinics in Vaughan and Mississauga.</p>
+  <p>The division trains REI fellows, residents and students, and is one of Canada's largest academic fertility programs. We also run the Clinical Embryology program, the only one in Canada, training future embryologists.</p>
+  <h3>What we do clinically</h3>
+  <ul>
+    <li><strong>Infertility assessment and treatment:</strong> ovarian reserve testing (AMH, antral follicle count), ovulation induction, IUI, IVF and ICSI.</li>
+    <li><strong>Embryology and andrology labs:</strong> embryo culture, vitrification, frozen embryo transfer, time-lapse imaging, and semen analysis and processing.</li>
+    <li><strong>Genetic testing:</strong> preimplantation genetic testing for aneuploidy (PGT-A).</li>
+    <li><strong>Reproductive surgery:</strong> office and operative hysteroscopy, and sonohysterography.</li>
+    <li><strong>Recurrent pregnancy loss and early pregnancy care.</strong></li>
+    <li><strong>Third-party reproduction:</strong> donor sperm and donor eggs.</li>
+    <li><strong>Fertility preservation:</strong> for medical and elective indications.</li>
+    <li><strong>Inclusive care:</strong> fertility care for 2SLGBTQIA+ and gender-diverse patients.</li>
+  </ul>
+  <h3>Our partners</h3>
+  <p>To name just a few: SickKids, Women's College Hospital, Princess Margaret Cancer Centre and Sunnybrook, and the provincial and national data registries BORN Ontario and CARTR Plus. We work with many more partners across Ontario and Canada.</p>
+  <h3>Our research themes</h3>
+  <div class="tw"><table>
+    <tr><th>Theme</th><th>Examples</th></tr>
+    <tr><td>Ovarian stimulation and trigger protocols</td><td>FSH/LH RCT, Trigger RCT, maximum gonadotropin dosing, OHSS</td></tr>
+    <tr><td>Embryology and genetics</td><td>Aneuploidy rates, blastocyst timing, rapid warming, oocyte grading, rescue ICSI</td></tr>
+    <tr><td>Endometrium and microbiome</td><td>Chronic endometritis, thin lining, endometrial dysbiosis</td></tr>
+    <tr><td>Pregnancy outcomes</td><td>Angiogenic markers, placental growth factor (PlGF)</td></tr>
+    <tr><td>Patient experience and decision support</td><td>VR during retrieval, Facebook support group, PGT-A decision aid, FERT-BURDEN, IVF drop-out</td></tr>
+    <tr><td>Equity and access</td><td>Studies with Black and Inuit patients, TGD patients, and patients living with HIV</td></tr>
+    <tr><td>AI and data science</td><td>Machine learning in IVF</td></tr>
+    <tr><td>Basic and translational science</td><td>Sperm–egg fusion, telomere length</td></tr>
+    <tr><td>Quality improvement</td><td>Early pregnancy loss pathways, the IVF patient journey</td></tr>
+  </table></div>
+  <div class="callout">
+    <h4>The IVF journey in brief (why timing matters for recruitment)</h4>
+    <ul class="journey">
+      <li>Consultation and workup</li><li>Ovarian stimulation</li><li>Trigger</li><li>Egg retrieval</li><li>Fertilization and embryo culture</li><li>Fresh or frozen embryo transfer</li><li>Pregnancy test and early scans</li>
+    </ul>
+    <p style="margin-bottom:0">Stimulation means daily injections, monitored by bloodwork and ultrasound. Most of our studies must approach patients at a specific point in this sequence, so knowing where a patient is in their cycle is the key to recruiting on time.</p>
+  </div>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s2-r1"><span>You can describe the division's three institutional settings.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s2-r2"><span>You can name our main clinical services.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s2-r3"><span>You can match five of our active studies to their research themes.</span></label>
+  </div>
+</section>
+
+<!-- 3 -->
+<section class="pg" id="s3" data-title="Your role" hidden>
+  <div class="kicker">Section 3</div>
+  <h2>Your role</h2>
+  <div class="tw"><table>
+    <tr><td style="width:150px"><strong>Position</strong></td><td>Clinical Research Assistant (CRA), REI Division research team</td></tr>
+    <tr><td><strong>Preceptors</strong></td><td>Swati Dixit and Dr. Jennia Michaeli</td></tr>
+    <tr><td><strong>Based at</strong></td><td>Mount Sinai Fertility, 250 Dundas St W</td></tr>
+    <tr><td><strong>Hours</strong></td><td>8 hours a day, for example 07:00–15:00. A lunch break adds to this time. During onboarding, your scheduled days run 08:00–16:00.</td></tr>
+    <tr><td><strong>On site / hybrid</strong></td><td><span class="tbc">To be confirmed</span></td></tr>
+  </table></div>
+  <h3>Primary responsibility: patient recruitment and study coordination</h3>
+  <ul>
+    <li>Screen clinic lists and eIVF tasks for eligible patients, working with physicians, fellows and nurses.</li>
+    <li>Contact referred patients promptly, using REB-approved scripts.</li>
+    <li>Explain studies clearly, send consent forms, and give patients enough time to decide.</li>
+    <li>Run the consent discussion and document it, but only for studies where you are trained and on the delegation log.</li>
+    <li>Enrol participants: assign study IDs, record randomization, notify the physician, pharmacy and nursing, and document in eIVF.</li>
+    <li>Book and coordinate study visits, sample collection and follow-up with MSF nursing, phlebotomy, pharmacy, the lab and external sites.</li>
+    <li>Keep screening, enrolment and consent logs, and participant reimbursement records, accurate and up to date.</li>
+  </ul>
+  <h3>Supporting responsibilities</h3>
+  <p class="muted">Learn these now; lead them later or during coverage.</p>
+  <ul>
+    <li><strong>REB and regulatory:</strong> prepare submissions, amendments, renewals and closures, and keep the REB master tracker current (<a href="#s7">Section 7</a>).</li>
+    <li><strong>Finance:</strong> track invoices, study funds, floats and reimbursements (<a href="#s8">Section 8</a>).</li>
+    <li><strong>Agreements:</strong> follow up with Legal on research contracts (<a href="#s9">Section 9</a>).</li>
+    <li><strong>IT and data:</strong> build REDCap and Simple Survey forms, manage SFTP access for CARTR and BORN, and troubleshoot problems (<a href="#s10">Section 10</a>).</li>
+    <li><strong>Team onboarding:</strong> help new students and research assistants get access and orientation.</li>
+  </ul>
+  <h3>Boundaries of the role</h3>
+  <ul>
+    <li>Never give medical advice. Clinical questions go to the patient's physician or the nursing team.</li>
+    <li>Only consent patients for studies where you are trained and on the delegation log.</li>
+    <li>Protect patient privacy (PHIPA). Only access charts you need for your studies, use secure email, and never store identifiable data on personal devices.</li>
+    <li>If a patient reports a problem or a protocol deviation happens, report it to Swati and the PI the same day.</li>
+  </ul>
+  <p class="muted">The studies you'll lead will be confirmed with Swati during your first weeks.</p>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s3-r1"><span>You can explain which activities you lead and which you support.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s3-r2"><span>You know the boundaries of the role and when to escalate an issue, and to whom.</span></label>
+  </div>
+</section>
+
+<!-- 4 -->
+<section class="pg" id="s4" data-title="People and contacts" hidden>
+  <div class="kicker">Section 4</div>
+  <h2>People and contacts</h2>
+  <h3>Your preceptors</h3>
+  <div class="tw"><table>
+    <tr><th>Name</th><th>Role</th><th>Contact for</th></tr>
+    <tr><td>Swati Dixit</td><td>Research Coordinator</td><td>Day-to-day questions, study procedures, REB and finance processes</td></tr>
+    <tr><td>Dr. Jennia Michaeli</td><td>REI physician, clinician-investigator</td><td>Progress, expectations, escalations</td></tr>
+  </table></div>
+  <h3>Physicians and investigators</h3>
+  <p class="muted">The initials are the ones used in the REB tracker.</p>
+  <div class="tw"><table>
+    <tr><th>Physician</th><th>Initials</th><th>Examples of active studies</th></tr>
+    <tr><td>Dr. Ellen Greenblatt</td><td><code>EG</code></td><td>FSH/LH RCT, Angiogenic Markers, Oncofertility database</td></tr>
+    <tr><td>Dr. Claire Jones</td><td><code>CJ</code></td><td>VR during retrieval, Facebook Support Group, FERT-BURDEN</td></tr>
+    <tr><td>Dr. Kimberly Liu</td><td><code>KL</code></td><td>Machine learning in IVF, stimulation protocols</td></tr>
+    <tr><td>Dr. Jennia Michaeli</td><td><code>JM / MJ</code></td><td>Trigger RCT, Telomere study, Oncofertility AfterCare, Sperm–egg fusion</td></tr>
+    <tr><td>Dr. Miguel Russo</td><td><code>MR</code></td><td>Dual Trigger RCT, ICSI funding</td></tr>
+    <tr><td>Dr. Vanessa Bacal</td><td><code>VB</code></td><td>Chronic Endometritis, microbiome studies, PGT-A decision aid, IVF drop-out</td></tr>
+    <tr><td>Dr. Heather Shapiro</td><td><code>HS</code></td><td>Endometrial factors, lab contamination, Black patients' access study</td></tr>
+    <tr><td>Dr. Nigel Pereira</td><td><code>NP</code></td><td>OHSS, hysteroscopy, Blind Trigger, MVA, RetrievED</td></tr>
+    <tr><td>Dr. Chidambra Halari (Embryology)</td><td><code>CH</code></td><td>Rapid warming, oocyte scoring, antiretroviral therapy (HIV) studies; processes study samples</td></tr>
+    <tr><td>Dr. Scot Hamilton (Andrology)</td><td>—</td><td>Trans female sperm parameters</td></tr>
+  </table></div>
+  <p class="muted">Current fellows, residents and students who are co-investigators are listed on a separate page that Swati keeps up to date.</p>
+  <h3>Clinical partners you'll work with every day</h3>
+  <div class="tw"><table>
+    <tr><th>Name / team</th><th>Role in studies</th></tr>
+    <tr><td>Alanna</td><td>Early Pregnancy nurse practitioner. Identifies Angiogenic Markers participants, collects menstrual cups, reviews ultrasounds.</td></tr>
+    <tr><td>Nicola</td><td>Oncofertility nurse practitioner. Identifies FSH/LH participants, provides the consent form for urgent recruitment, sends tasks to pharmacy.</td></tr>
+    <tr><td>MSF Nursing</td><td>Explains medication dosing and administration to study patients.</td></tr>
+    <tr><td>MSF Phlebotomy</td><td>Takes study blood samples.</td></tr>
+    <tr><td>MSF Pharmacy</td><td>Dispenses study medication (for example, Luveris for the FSH/LH trial).</td></tr>
+    <tr><td>Fellows</td><td>Identify participants and help with urgent and weekend consents.</td></tr>
+    <tr><td>MSF administrative team</td><td>Coordinates patient visits and books procedures.</td></tr>
+  </table></div>
+  <h3>Institutional offices</h3>
+  <div class="tw"><table>
+    <tr><th>Office</th><th>Contact them for</th></tr>
+    <tr><td>Sinai Health Research Ethics Board (REB)</td><td>Submissions, amendments, renewals, closures</td></tr>
+    <tr><td>Research Finance</td><td>Internal orders, invoices, floats, salary invoices</td></tr>
+    <tr><td>Legal / Research Contracts</td><td>Clinical trial, data-sharing and material-transfer agreements</td></tr>
+    <tr><td>IT</td><td>Accounts, SFTP for CARTR and BORN, hardware</td></tr>
+    <tr><td>REDCap team</td><td>Setting up, transferring and archiving REDCap projects</td></tr>
+    <tr><td>Clinical Trials Ontario (CTO)</td><td>Multi-site studies reviewed through CTO (for example, the Oncofertility AfterCare study)</td></tr>
+  </table></div>
+  <p><strong>Team mailbox:</strong> <code>MSFResearch@sinaihealth.ca</code>. Use it for all study communication with patients.</p>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s4-r1"><span>You can name the right contact for a recruitment question, a pharmacy request, a sample question, an REB query and an invoice.</span></label>
+  </div>
+</section>
+
+<!-- 5 -->
+<section class="pg" id="s5" data-title="Patient recruitment" hidden>
+  <div class="kicker">Section 5</div>
+  <h2>Patient recruitment</h2>
+  <h3>5.1 Why recruitment matters</h3>
+  <p>Every prospective study we run depends on recruitment. A study that doesn't enrol enough participants can't answer its research question, loses funding time, and wastes the effort of the patients who already took part. Many of our studies can only enrol at a specific moment in a patient's treatment, such as before stimulation starts, at the trigger, or at an early pregnancy scan. If that moment is missed, the patient usually can't be enrolled.</p>
+  <div class="callout key"><p style="margin:0"><strong>Your goal is simple: no eligible patient should be missed.</strong> Two things make that happen: careful communication and steady follow-through.</p></div>
+  <h3>5.2 Know your studies well</h3>
+  <ul>
+    <li>For every study you recruit for, know the eligibility criteria, the recruitment window, and what taking part involves (visits, samples, questionnaires, reimbursement). You should be able to explain each study in two or three plain sentences.</li>
+    <li>Keep a one-page cheat sheet for each study with the inclusion and exclusion criteria, the timing window, and who usually refers patients.</li>
+    <li>Check that you're using the current REB-approved consent form and script before every contact.</li>
+  </ul>
+  <h3>5.3 Stay visible to the people who refer patients</h3>
+  <p>Physicians, nurse practitioners, fellows and nurses identify most of our participants, but they're busy and it's easy for them to forget a study.</p>
+  <ul>
+    <li>Introduce yourself to each referring clinician and tell them which studies you're recruiting for.</li>
+    <li>Send short, regular reminders about which studies are open and who is eligible, for example a weekly email or a quick check-in at the start of clinic.</li>
+    <li>Offer simple aids, such as a pocket card or a one-line eligibility summary for each study.</li>
+    <li><strong>Close the loop.</strong> Let the clinician know what happened with each patient they referred (contacted, enrolled or declined). Clinicians keep referring when they can see their referrals lead somewhere.</li>
+  </ul>
+  <h3>5.4 A daily routine that stops referrals slipping through</h3>
+  <ul>
+    <li>Check eIVF tasks and the <code>MSFResearch@sinaihealth.ca</code> mailbox at least <strong>twice a day</strong>: first thing in the morning, and again early in the afternoon.</li>
+    <li>Reply to every referral <strong>the same day</strong>, and immediately if the recruitment window is close.</li>
+    <li>Where the REB-approved protocol allows it, review upcoming clinic lists and cycle start dates to flag possibly eligible patients to their physician ahead of time. Do this only as the protocol permits and in line with PHIPA.</li>
+    <li>Know how weekend and after-hours recruitment is handled for each study, so that urgent patients aren't lost.</li>
+  </ul>
+  <h3>5.5 Communicating with patients</h3>
+  <p>Many of our patients are going through fertility treatment, pregnancy loss or a cancer diagnosis. How you approach them matters as much as what you say.</p>
+  <ul>
+    <li><strong>Start warmly.</strong> Introduce yourself, say who referred them and why you're calling, and ask whether now is a good time.</li>
+    <li><strong>Use plain language.</strong> Avoid jargon, and check that they've understood.</li>
+    <li><strong>Listen.</strong> Let them ask questions, and acknowledge concerns without rushing past them.</li>
+    <li><strong>Be clear that participation is voluntary.</strong> Tell every patient that saying no won't affect their care, and mean it.</li>
+    <li><strong>Give them time to decide.</strong> Tell them when you'll follow up.</li>
+    <li><strong>Stay within your role.</strong> Refer medical questions to their physician or the nursing team.</li>
+  </ul>
+  <h3>5.6 Persistence without pressure</h3>
+  <ul>
+    <li>Patients often miss calls during treatment. One missed call doesn't mean they aren't interested.</li>
+    <li><strong>Follow-up standard:</strong> make at least 3 attempts over about 5 business days, changing the time of day and the channel (phone, then email, then phone). Record each attempt.</li>
+    <li>If you still can't reach the patient, let the referring clinician know. They may be seeing the patient soon and can mention it.</li>
+    <li>Being persistent means making sure the patient <strong>has a chance to decide</strong>. It never means pushing them toward a yes. Once a patient declines, thank them, record it, and don't contact them again.</li>
+  </ul>
+  <h3>5.7 Track your numbers and learn from them</h3>
+  <p>Keep a simple recruitment log for each study that records:</p>
+  <ul>
+    <li>how many patients were <strong>identified</strong>, <strong>contacted</strong>, <strong>consented</strong> and <strong>enrolled</strong>;</li>
+    <li>why patients <strong>declined</strong> or were <strong>missed</strong> (unreachable, outside the window, ineligible, and so on).</li>
+  </ul>
+  <p>Review the log every week with Swati. Patterns show you where to act. For example, many "missed window" patients point to a referral timing problem, and many unreachable patients point to a need to change the contact method. Bring ideas for improvement to your progress meetings.</p>
+  <h3>5.8 Getting the basics right</h3>
+  <h4>The general workflow</h4>
+  <ol class="steps">
+    <li>A clinician identifies a potential participant and introduces the study.</li>
+    <li>The patient agrees to be contacted.</li>
+    <li>You contact them using the approved script.</li>
+    <li>They review the consent form and ask questions.</li>
+    <li>The consent discussion takes place and the form is signed.</li>
+    <li>You enrol the participant (study ID and arm, if applicable).</li>
+    <li>You document in eIVF and the study logs.</li>
+    <li>You coordinate study visits and follow-up.</li>
+  </ol>
+  <h4>For every participant, document</h4>
+  <p>The screening checklist, the consent discussion note, two signed copies of the consent form (one for Sinai's records, one for the patient), the study ID or arm, the eIVF entry, and any reimbursement receipt.</p>
+  <p><strong>Report any deviation or error</strong> to Swati and the PI the same day. Each study's specific steps are kept in its own SOP, which Swati will go through with you.</p>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s5-r1"><span>You can explain each of your studies in plain language.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s5-r2"><span>You run your daily referral routine without prompts.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s5-r3"><span>You've handled a contact call from start to finish, including one where the patient declines.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s5-r4"><span>You've presented your weekly recruitment numbers to Swati.</span></label>
+  </div>
+</section>
+
+<!-- 6 -->
+<section class="pg" id="s6" data-title="Accounts, access and training" hidden>
+  <div class="kicker">Section 6</div>
+  <h2>Accounts, access and mandatory training</h2>
+  <h3>6.1 Accounts and access</h3>
+  <p>Aim to have all of these requested in Week 1. Some take several days to be approved, so request them early.</p>
+  <div class="tw"><table>
+    <tr><th>Account or access</th><th>What it's for</th><th>Who helps</th><th>Target</th></tr>
+    <tr><td>Sinai Health ID badge</td><td>Building and clinic access</td><td>HR / Security</td><td>Day 1</td></tr>
+    <tr><td>Network login and @sinaihealth.ca email</td><td>Everything</td><td>IT</td><td>Day 1</td></tr>
+    <tr><td>MSFResearch@sinaihealth.ca shared mailbox</td><td>All study communication with patients</td><td>Swati / IT</td><td>Days 1–2</td></tr>
+    <tr><td>Research shared drive (X:\IVF\Research)</td><td>Study files, the REB tracker, templates</td><td>Swati / IT</td><td>Days 1–2</td></tr>
+    <tr><td>eIVF (with training videos and quick-reference guides)</td><td>Referral tasks, flowsheets, progress notes</td><td>MSF admin / eIVF lead</td><td>Week 1 (after privacy training)</td></tr>
+    <tr><td>REDCap</td><td>Study databases, consent and surveys</td><td>REDCap team</td><td>Week 1</td></tr>
+    <tr><td>Simple Survey</td><td>Patient questionnaires</td><td>Swati</td><td>Week 2</td></tr>
+    <tr><td>SHORES (the REB's online submission system)</td><td>Submissions, amendments, renewals</td><td>Swati / REB office</td><td>Week 2</td></tr>
+    <tr><td>Zoom / Teams</td><td>Meetings and virtual consults</td><td>IT</td><td>Week 1</td></tr>
+    <tr><td>Study delegation logs</td><td>Being authorized for tasks on each study</td><td>Swati / PI</td><td>After training, for each study</td></tr>
+    <tr><td>SFTP (CARTR Plus / BORN)</td><td>Registry data transfers</td><td>IT</td><td>Later, only if assigned</td></tr>
+  </table></div>
+  <h3>6.2 Mandatory training</h3>
+  <div class="tw"><table>
+    <tr><th>Course</th><th>Why you need it</th><th>Approx. time</th><th>Due</th></tr>
+    <tr><td><strong>TCPS 2: CORE-2022</strong></td><td>Required for anyone working on human-participant research in Canada</td><td>3–4 h</td><td>Fri Oct 2</td></tr>
+    <tr><td><strong>Sinai Health privacy / PHIPA training</strong></td><td>Required before you can access eIVF or patient information</td><td>~1 h</td><td>Days 1–2</td></tr>
+    <tr><td><strong>Good Clinical Practice (ICH-GCP)</strong></td><td>Required for clinical trials such as our RCTs. You should already have this: confirm your current certificate is on file. <span class="tbc">Course name to confirm</span></td><td>—</td><td>Fri Oct 2 (confirm on file)</td></tr>
+    <tr><td><strong>Health Canada Division 5</strong></td><td>For trials that involve study drugs</td><td>~2 h</td><td>Fri Oct 16</td></tr>
+    <tr><td><strong>SHORES training</strong></td><td>Preparing and tracking REB submissions in SHORES</td><td>As scheduled</td><td>Tue Oct 13</td></tr>
+    <tr><td><strong>Transportation of Dangerous Goods (TDG)</strong>, biological specimens</td><td>Required before you package or ship study samples</td><td>2–3 h</td><td>Fri Oct 23</td></tr>
+    <tr><td><strong>Sinai Health corporate orientation</strong></td><td>WHMIS, fire safety, infection control, accessibility</td><td>As scheduled by HR</td><td>Per HR</td></tr>
+    <tr><td><strong>eIVF training videos</strong></td><td>Navigating referrals, tasks and documentation</td><td>1–2 h</td><td>Week 1</td></tr>
+    <tr><td><strong>REDCap basic training</strong></td><td>Data entry, e-consent, surveys</td><td>1–2 h</td><td>Week 2</td></tr>
+    <tr><td><strong>NVivo</strong> (<a href="https://mdl.library.utoronto.ca/technology/tutorials/nvivo-information-resources-tutorials-and-workshops" target="_blank" rel="noopener">UofT Map &amp; Data Library tutorials and workshops</a>)</td><td>Analysing qualitative data for our qualitative studies</td><td>2–3 h</td><td>Week 4</td></tr>
+  </table></div>
+  <h4>Keeping your certificates</h4>
+  <ul>
+    <li>Save a PDF of every certificate in the training folder on the research shared drive.</li>
+    <li>Send a copy to Swati for the study regulatory binders.</li>
+    <li>Keep your CV current (signed and dated) for the study files.</li>
+    <li>GCP and TDG have to be renewed regularly (usually every 2–3 years). Add the renewal dates to your calendar.</li>
+  </ul>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s6-r1"><span>Every account in 6.1 works.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s6-r2"><span>Every certificate is saved and filed.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s6-r3"><span>You've been added to the delegation log for the studies you'll recruit for.</span></label>
+  </div>
+</section>
+
+<!-- 7 -->
+<section class="pg" id="s7" data-title="REB and regulatory" hidden>
+  <div class="kicker">Section 7</div>
+  <h2>REB and regulatory</h2>
+  <h3>7.1 The basics</h3>
+  <p>All human-participant research here needs approval from the <strong>Sinai Health Research Ethics Board (REB)</strong> before any study activity starts, and the approval must stay current for as long as the study runs. Submissions are made through <strong>SHORES</strong>, the REB's online system.</p>
+  <p>Each study has an REB number such as <span class="reb">24-0084-E</span>: the year, a sequence number, and a letter for the review type. The letters appear to be <strong>-A</strong> (full board), <strong>-E</strong> (expedited/delegated) and <strong>-C</strong> (chart review). <span class="tbc">To be confirmed</span></p>
+  <p>Quality-improvement projects go through a <strong>QI screening</strong> step to confirm they don't need full REB review.</p>
+  <h3>7.2 The study lifecycle</h3>
+  <div class="tw"><table>
+    <tr><th>Stage</th><th>What you do</th><th>Tips</th></tr>
+    <tr><td><strong>Initial submission</strong></td><td>Assemble the protocol, consent forms, scripts, recruitment materials, data collection forms, budget, and team CVs and TCPS 2 certificates</td><td>Use the templates on the shared drive. The PI signs off before submission.</td></tr>
+    <tr><td><strong>REB queries</strong></td><td>Coordinate the answers with the PI, then resubmit</td><td>Track every query in the tracker so none sits unanswered.</td></tr>
+    <tr><td><strong>Amendments</strong></td><td>Submit any change (protocol, consent form, materials or sites) and get approval <strong>before</strong> putting it into practice</td><td>The only exception is a change needed to remove an immediate risk to participants.</td></tr>
+    <tr><td><strong>Personnel changes</strong></td><td>Submit an amendment when someone joins or leaves the study team</td><td>Your own addition to your studies will be one of your first submissions.</td></tr>
+    <tr><td><strong>Annual renewal</strong></td><td>Submit before the approval expires</td><td>If approval lapses, <strong>all study activity must stop</strong>, including recruitment.</td></tr>
+    <tr><td><strong>Reportable events</strong></td><td>Report protocol deviations, adverse events and privacy breaches within the REB's timelines</td><td>Tell Swati and the PI the same day.</td></tr>
+    <tr><td><strong>Closure / termination</strong></td><td>Submit the closure report when the study is finished</td><td>Then move the study to the Closed sheet in the tracker.</td></tr>
+  </table></div>
+  <h3>7.3 Special cases</h3>
+  <ul>
+    <li><strong>Multi-site studies:</strong> some are reviewed through Clinical Trials Ontario (CTO). For example, in the Oncofertility AfterCare study we're a sub-site alongside Princess Margaret and SickKids. Others need approval from a second REB, such as Women's College Hospital.</li>
+    <li><strong>Drug trials:</strong> these also need Health Canada authorization (Division 5) and registration on ClinicalTrials.gov.</li>
+    <li><strong>Animal studies:</strong> these don't go to the REB. They follow animal-care approvals instead.</li>
+  </ul>
+  <h3>7.4 Document version control</h3>
+  <ul>
+    <li>Every approved document carries a version number and date in its footer and file name, for example <code>Protocol-V4-September 2_2025_C</code>.</li>
+    <li>Submit amendments as a tracked-changes copy and a clean copy.</li>
+    <li>Once a new version is approved, stop using the old one straight away, file it as superseded, and let the clinicians and fellows know.</li>
+    <li>The tracker's "REB Approved/Submitted Documents" column must always show the current versions.</li>
+  </ul>
+  <h3>7.5 Regulatory binder (essential documents)</h3>
+  <p>Each study keeps a paper or electronic binder containing approval letters and approved documents; correspondence with the REB; the delegation log; training records and CVs; screening and enrolment logs; the deviation log; and signed consent forms, stored securely.</p>
+  <h3>7.6 The REB MasterFile tracker</h3>
+  <p>The tracker is the team's master record of every study.</p>
+  <ul>
+    <li><strong>Active Studies:</strong> grouped by PI. Status labels include Upcoming, Almost completed, REB pending, QI, Grants, Co-PI and Animal model.</li>
+    <li><strong>Closed / Inactive Studies:</strong> terminated, closed or lapsed studies, with dates and notes.</li>
+    <li><strong>Finance sheet:</strong> internal orders and cost centres (<a href="#s8">Section 8</a>).</li>
+  </ul>
+  <p><strong>Key columns:</strong> study title, internal number, REB number, study type, funding and PI; renewal due dates for each year, and notes; current approved document versions; lead coordinator; important notes for coverage during absences; and task delegation.</p>
+  <h4>How to use it</h4>
+  <ul>
+    <li>Every month, check which renewals are due in the next <strong>60 days</strong>.</li>
+    <li>Update the tracker the same day you submit anything or receive an approval.</li>
+    <li>Record where each open REB query stands.</li>
+    <li>When a study closes, file the closure report and move the study to the Closed sheet.</li>
+  </ul>
+  <div class="callout key">
+    <h4>Onboarding project: update and upgrade the tracker</h4>
+    <p>The current tracker needs both updating and upgrading. Work with Swati to:</p>
+    <ul style="margin-bottom:0">
+      <li>check and update every entry: due dates, status, current document versions and lead coordinator;</li>
+      <li>improve how all studies are tracked on a continuous basis, so the tracker stays current without a periodic clean-up;</li>
+      <li>make sure <strong>no renewal is ever missed</strong>, for example with a rolling 60-day renewal view and clear status fields;</li>
+      <li>add an <strong>agreements log</strong> (<a href="#s9">Section 9</a>).</li>
+    </ul>
+  </div>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s7-r1"><span>You can explain each stage of the study lifecycle.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s7-r2"><span>You've prepared a personnel amendment in SHORES.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s7-r3"><span>You can find any study's renewal date and current consent version in the tracker.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s7-r4"><span>You can explain what happens if approval lapses.</span></label>
+  </div>
+</section>
+
+<!-- 8 -->
+<section class="pg" id="s8" data-title="Finance and study funds" hidden>
+  <div class="kicker">Section 8</div>
+  <h2>Finance and study funds</h2>
+  <h3>8.1 How study money works</h3>
+  <p>Each funded study has its own <strong>internal order (IO) or cost centre</strong> at Sinai Health. Every expense, invoice and salary charge for that study is posted to it. Funding comes from several sources:</p>
+  <ul>
+    <li><strong>Departmental and divisional awards:</strong> the Barbara Cruickshank Divisional Research Award, the Sam Bodnarchuk Award, the Mary Hannah Departmental Research Award, and the Knox Ritchie Award.</li>
+    <li><strong>Foundation and institutional grants:</strong> the Sinai Health Foundation SEED Grant, UofT awards, the REI fellowship research fund, and the Fellberg Family Award.</li>
+    <li><strong>External grants:</strong> PSI Foundation, CFAS (including Ferring-supported awards), OICR, MITACS and ASRM.</li>
+    <li><strong>Industry-supported projects.</strong></li>
+  </ul>
+  <p>Some divisional grants work differently: instead of charging an IO directly, we <strong>invoice the Division</strong> for expenses.</p>
+  <h3>8.2 Your finance tasks</h3>
+  <div class="tw"><table>
+    <tr><th>Task</th><th>What it involves</th></tr>
+    <tr><td><strong>Research invoices</strong></td><td>Check each invoice against the study budget and IO, get the PI's approval, submit it to Research Finance, track payment, and file a copy.</td></tr>
+    <tr><td><strong>Salary invoices</strong></td><td>Prepare and submit invoices for research assistant and student salaries charged to grants, then confirm they've been processed.</td></tr>
+    <tr><td><strong>Study floats</strong></td><td>Manage cash advances for participant reimbursements (for example, the $45 AMH reimbursement). Every payout needs a receipt signed by the participant, and the float is reconciled regularly.</td></tr>
+    <tr><td><strong>Tracking study funds</strong></td><td>Keep a running record of budget vs. spending for each IO, and note grant end dates and reporting deadlines.</td></tr>
+    <tr><td><strong>Follow-up</strong></td><td>Chase outstanding payments and missing approvals, and keep financial records complete.</td></tr>
+  </table></div>
+  <p class="muted">Swati will walk you through the approval route for invoices and salary invoices.</p>
+  <h3>8.3 Ground rules</h3>
+  <ul>
+    <li>Spend only within the approved budget and the grant period.</li>
+    <li>Every expense needs documentation: an invoice, a receipt or a signed participant receipt.</li>
+    <li>Reconcile floats monthly. Never hand out cash without a signed receipt.</li>
+    <li>Flag grants ending within 3 months, and any study close to overspending, to the PI and Swati.</li>
+    <li>Keep final financial reports in mind: many funders require one when the grant ends.</li>
+  </ul>
+  <h3>8.4 Where to find it</h3>
+  <p>The <strong>Finance sheet</strong> in the REB MasterFile lists each funded study with its REB number, IO or cost centre, PI and funding notes. Like the rest of the tracker, it needs updating; checking the IOs for your studies with Swati and Research Finance is part of your tracker project.</p>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s8-r1"><span>You can explain what an IO is.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s8-r2"><span>You've processed an invoice with Swati.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s8-r3"><span>You can reconcile a float with its receipts.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s8-r4"><span>You can report a study's remaining balance and end date.</span></label>
+  </div>
+</section>
+
+<!-- 9 -->
+<section class="pg" id="s9" data-title="Agreements and legal" hidden>
+  <div class="kicker">Section 9</div>
+  <h2>Agreements and legal</h2>
+  <h3>9.1 When an agreement is needed</h3>
+  <p>Whenever a study involves another organization (sharing data, sending samples, receiving funding or study drug, or working with other sites), Sinai Health needs a written agreement before that activity can start. The team works with Sinai Health's Legal / Research Contracts office, which negotiates and signs agreements on the institution's behalf.</p>
+  <div class="tw"><table>
+    <tr><th>Agreement</th><th>Used when</th><th>Examples from our work</th></tr>
+    <tr><td><strong>Clinical Trial Agreement (CTA)</strong></td><td>An industry- or externally sponsored trial</td><td>Trials with a sponsor or supplied drug</td></tr>
+    <tr><td><strong>Data Sharing / Transfer Agreement (DSA/DTA)</strong></td><td>Data leaves or enters Sinai Health</td><td>Multi-centre consortia; registry data from BORN Ontario or CARTR Plus</td></tr>
+    <tr><td><strong>Material Transfer Agreement (MTA)</strong></td><td>Biological samples go to or come from another institution</td><td>Samples sent to external labs</td></tr>
+    <tr><td><strong>Research Collaboration Agreement</strong></td><td>Several sites share the work, funding or intellectual property</td><td>Multi-site studies with SickKids, Princess Margaret and others</td></tr>
+    <tr><td><strong>Confidentiality Agreement (CDA/NDA)</strong></td><td>Confidential information is exchanged before a study starts</td><td>Early discussions with industry</td></tr>
+    <tr><td><strong>Service agreement</strong></td><td>An outside vendor provides a paid service</td><td>External testing or analysis</td></tr>
+  </table></div>
+  <h3>9.2 The workflow</h3>
+  <ol class="steps">
+    <li><strong>Identify the need early</strong>, during study planning or when a change is proposed.</li>
+    <li><strong>Gather the details:</strong> the parties, scope, data or materials involved, budget, PI, REB status and timelines.</li>
+    <li><strong>Submit the request</strong> to Legal / Research Contracts.</li>
+    <li><strong>Relay questions</strong> between Legal, the PI and the external party, and keep a record of every exchange.</li>
+    <li>The <strong>PI reviews</strong> the final draft, and then <strong>Sinai Health signs</strong>. A PI can't sign on the institution's behalf.</li>
+    <li><strong>File the signed agreement</strong> on the shared drive and record it in the tracker, with any expiry date.</li>
+    <li><strong>Track amendments and renewals</strong>, such as extensions and scope changes.</li>
+  </ol>
+  <h3>9.3 Ground rules</h3>
+  <ul>
+    <li><strong>No data or samples leave Sinai Health</strong> until both the agreement is signed and the REB has approved.</li>
+    <li>Follow up on pending agreements every 1–2 weeks. Contract negotiations stall easily.</li>
+    <li>Keep an <strong>agreements log</strong> (study, agreement type, other party, status, date submitted, date signed, expiry). This becomes part of the tracker upgrade.</li>
+  </ul>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s9-r1"><span>You can name the agreement type needed for a given scenario (for example, sending samples to an external lab).</span></label>
+    <label class="chk"><input type="checkbox" data-id="s9-r2"><span>You can describe the workflow.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s9-r3"><span>You can give the status of any pending agreement for your studies.</span></label>
+  </div>
+</section>
+
+<!-- 10 -->
+<section class="pg" id="s10" data-title="Systems and data" hidden>
+  <div class="kicker">Section 10</div>
+  <h2>Systems and data</h2>
+  <h3>10.1 eIVF (the clinic's electronic medical record)</h3>
+  <p><strong>What you use it for:</strong> receiving referral tasks, adding study flowsheet labels, writing progress notes about enrolment and study status, and checking where a patient is in their treatment cycle so you contact them at the right time.</p>
+  <p><strong>Rules:</strong> open only the charts you need for your studies; eIVF keeps an audit trail of every chart you open. Always use the approved label or note wording for each study.</p>
+  <h3>10.2 REDCap</h3>
+  <ul>
+    <li><strong>What you use it for:</strong> study databases, e-consent, patient surveys and follow-up questionnaires.</li>
+    <li><strong>Project lifecycle:</strong> development → testing → production (needs the PI's approval). When a study ends, the project is set to read-only or archived. Transfer and ownership requests go to the REDCap team.</li>
+    <li><strong>User rights:</strong> give each person the minimum access they need, and remove access as soon as someone leaves a study.</li>
+    <li><strong>Good practice:</strong> keep a data dictionary, test every new instrument with dummy records before going live, and never change a production form without checking whether the REB needs to approve the change.</li>
+  </ul>
+  <h3>10.3 Simple Survey</h3>
+  <p>Used for patient-facing questionnaires and QI surveys. Before launching a survey, confirm whether it's anonymous or identifiable, and make sure it matches the REB-approved version.</p>
+  <h3>10.4 Registries: CARTR Plus and BORN Ontario</h3>
+  <p><strong>CARTR Plus</strong> is Canada's national registry of assisted reproduction cycles. <strong>BORN Ontario</strong> is the province's registry of pregnancy, birth and child outcomes. Some studies use registry data under agreements (<a href="#s9">Section 9</a>); you'll help coordinate data requests and the secure SFTP transfers, which IT sets up.</p>
+  <h3>10.5 NVivo</h3>
+  <p>Used to analyse qualitative data, such as interview and focus-group transcripts. Keep project files on the secure research drive, and only load de-identified transcripts.</p>
+  <h3>10.6 The shared research drive</h3>
+  <p><code>X:\IVF\Research</code> holds study folders (grouped by PI and study), the REB MasterFile, templates, training records, and the "Inactive OR Completed studies" archive. Save files in the right study folder, with the version-control naming convention (<a href="#s7">Section 7</a>). Never keep study files on your desktop or a personal device.</p>
+  <h3>10.7 Data handling essentials</h3>
+  <ul>
+    <li><strong>Keep identifiable information to a minimum.</strong> Use study IDs on data forms, and store the key linking study IDs to patients separately, with restricted access.</li>
+    <li><strong>Use only secure channels:</strong> Sinai Health email, the MSFResearch mailbox and approved platforms. Never use personal email, personal cloud storage or unencrypted USB drives.</li>
+    <li><strong>Report any suspected privacy breach the same day</strong> to Swati, the PI and the Sinai Health Privacy Office.</li>
+    <li><strong>Keep records for as long as required</strong> by the protocol and Sinai Health policy. Clinical trials regulated by Health Canada have longer retention periods.</li>
+  </ul>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s10-r1"><span>You can find your studies' referral tasks and document enrolment in eIVF.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s10-r2"><span>You've built and tested a simple REDCap instrument.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s10-r3"><span>You can find any study's folder on the shared drive.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s10-r4"><span>You can explain how the study ID key is stored.</span></label>
+  </div>
+</section>
+
+<!-- 11 -->
+<section class="pg" id="s11" data-title="Study portfolio" hidden>
+  <div class="kicker">Section 11</div>
+  <h2>Study portfolio</h2>
+  <p class="muted">Based on the REB MasterFile dated January 2025. It will be refreshed as part of your tracker project (<a href="#s7">Section 7</a>).</p>
+  <h3>11.1 What each study type means for your work</h3>
+  <div class="tw"><table>
+    <tr><th>Type</th><th>Patient contact</th><th>Your work</th></tr>
+    <tr><td><span class="pill pros">Prospective</span></td><td>Yes</td><td>Recruitment, consent, study visits, samples, follow-up and logs. This is where most of your time goes.</td></tr>
+    <tr><td><span class="pill">Retrospective</span></td><td>No</td><td>Keeping REB renewals current, helping with data extraction, managing the REDCap database, and closing the study when it's done.</td></tr>
+    <tr><td><span class="pill qi">QI</span></td><td>Sometimes</td><td>QI screening instead of full REB review; mostly surveys, data collection and tracking.</td></tr>
+  </table></div>
+  <h3>11.2 Prospective studies to know first</h3>
+  <ul>
+    <li><strong>Dr. Greenblatt:</strong> FSH/LH RCT, Angiogenic Markers, Oncofertility REDCap database</li>
+    <li><strong>Dr. Jones:</strong> VR during oocyte retrieval, Facebook peer-support group, PGT-A needs assessment</li>
+    <li><strong>Dr. Bacal:</strong> Chronic Endometritis, Thin Lining / endometrial dysbiosis, recurrent pregnancy loss microbiome, IVF drop-out, PGT-A decision aid</li>
+    <li><strong>Dr. Michaeli:</strong> Trigger RCT, Telomere study, Sperm–Egg Fusion, Oncofertility AfterCare clinic, oncofertility education projects</li>
+    <li><strong>Dr. Russo:</strong> Dual Trigger RCT</li>
+    <li><strong>Dr. Shapiro:</strong> qualitative study with Black patients; embryology lab microbiology</li>
+    <li><strong>Dr. Pereira:</strong> microfluidic sperm processing; RetrievED</li>
+    <li><strong>Dr. Halari:</strong> antiretroviral therapy and sperm (two studies), IUI anxiety and stress, team-based embryology</li>
+  </ul>
+  <p><strong>Upcoming:</strong> OICR, Trigger RCT, Telomere, Inuit oncofertility education, Oncofertility AfterCare clinic, and the antiretroviral therapy and sperm markers pilot.</p>
+  <h3>11.3 All active studies</h3>
+  <div class="filters">
+    <label for="q" class="muted" style="position:absolute;left:-9999px">Search studies</label>
+    <input id="q" type="search" placeholder="Search title, REB number or funding">
+    <label for="fpi" style="position:absolute;left:-9999px">PI</label>
+    <select id="fpi"><option value="">All PIs</option></select>
+    <label for="ftype" style="position:absolute;left:-9999px">Type</label>
+    <select id="ftype"><option value="">All types</option></select>
+  </div>
+  <div class="count" id="scount"></div>
+  <div class="tw"><table>
+    <thead><tr><th>Study</th><th>REB no.</th><th>Type</th><th>PI</th><th>Funding</th></tr></thead>
+    <tbody id="stbody"></tbody>
+  </table></div>
+  <p class="muted">Studies are grouped under the PI section they appear in on the tracker. Closed and inactive studies are on the Closed sheet of the tracker.</p>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s11-r1"><span>You can name the prospective studies you recruit for and their PIs.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s11-r2"><span>You can find any study's REB number and type.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s11-r3"><span>You can explain how your role differs between prospective and retrospective studies.</span></label>
+  </div>
+</section>
+
+<!-- 12 -->
+<section class="pg" id="s12" data-title="Methodology and education" hidden>
+  <div class="kicker">Section 12</div>
+  <h2>Research methodology and education</h2>
+  <h3>12.1 Health Research Methodology Course</h3>
+  <div class="callout key">
+    <p style="margin:0"><strong>October 28 – 30, 2026 · virtual video conference.</strong> This three-day UofT ObGyn course is the final part of your onboarding. <strong>Register early</strong> (Week 1) and attend all three days. It covers research ethics and recruitment, RCTs, observational and qualitative methods, statistics, quality improvement, big data, critical appraisal and grant writing: the methods behind the studies you'll support.</p>
+  </div>
+  <h4>Before the course (week of October 19)</h4>
+  <p>Look through the <a href="https://www.equator-network.org/" target="_blank" rel="noopener">EQUATOR</a> reporting checklists that match our study types: CONSORT (RCTs), STROBE (observational studies), SRQR / COREQ (qualitative studies) and SQUIRE (QI).</p>
+  <h4>After the course</h4>
+  <p>Write a one-page reflection with your three main takeaways and one idea for improving recruitment or study conduct on our team. You'll discuss it at your final onboarding sign-off.</p>
+  <h3>12.2 Core references</h3>
+  <ul>
+    <li><strong>Ethics and regulation:</strong> TCPS 2 (2022), ICH-GCP E6, Health Canada Division 5, PHIPA.</li>
+    <li><strong>Study design and reporting:</strong> the EQUATOR Network (CONSORT, STROBE, SRQR, SQUIRE), ClinicalTrials.gov.</li>
+    <li><strong>Tools:</strong> REDCap training resources; <a href="https://mdl.library.utoronto.ca/technology/tutorials/nvivo-information-resources-tutorials-and-workshops" target="_blank" rel="noopener">NVivo tutorials from the UofT Map &amp; Data Library</a>.</li>
+    <li><strong>Background on our field:</strong> ASRM, CFAS and ESHRE guidelines; journals such as <em>Fertility and Sterility</em>, <em>Human Reproduction</em>, <em>RBMO</em> and <em>JOGC</em>; the RBMO webinar series; IVF Worldwide.</li>
+  </ul>
+  <div class="ready"><h4>You're ready when…</h4>
+    <label class="chk"><input type="checkbox" data-id="s12-r1"><span>You've registered for the course.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s12-r2"><span>You've attended all three course days.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s12-r3"><span>You've submitted your reflection.</span></label>
+    <label class="chk"><input type="checkbox" data-id="s12-r4"><span>You can explain the main design features of one RCT and one observational study from our portfolio.</span></label>
+  </div>
+</section>
+
+<!-- 13 -->
+<section class="pg" id="s13" data-title="Meetings and calendar" hidden>
+  <div class="kicker">Section 13</div>
+  <h2>Meetings and calendar</h2>
+  <h3>During onboarding</h3>
+  <ul>
+    <li><strong>Weekly check-in with Swati</strong>, Fridays at the end of the day: review your schedule checklist and recruitment log.</li>
+    <li><strong>Mid-point review</strong> with Swati and Dr. Michaeli, Friday October 16.</li>
+    <li><strong>Final sign-off</strong> with Swati and Dr. Michaeli, Friday October 30, after the methodology course.</li>
+  </ul>
+  <h3>After onboarding</h3>
+  <ul>
+    <li><strong>Weekly progress meeting with Dr. Michaeli.</strong> <span class="tbc">Day and time to be set</span></li>
+    <li><strong>Weekly recruitment review with Swati</strong>, using your recruitment log (<a href="#s5">Section 5.7</a>).</li>
+    <li>Divisional research meetings and journal club. <span class="tbc">Schedule to be added</span></li>
+  </ul>
+  <h3>Across the year</h3>
+  <ul>
+    <li><strong>Monthly:</strong> renewal check in the tracker (renewals due in the next 60 days); float reconciliation.</li>
+    <li><strong>Grant cycles:</strong> departmental and divisional award deadlines, plus external funders (PSI, CFAS and others). <span class="tbc">Dates to be added</span></li>
+    <li><strong>Conferences:</strong> the CFAS Annual Meeting, ASRM Scientific Congress and ESHRE Annual Meeting. Abstract deadlines drive extra data and REB work in the months before.</li>
+  </ul>
+</section>
+
+<!-- 14 -->
+<section class="pg" id="s14" data-title="Coverage and continuity" hidden>
+  <div class="kicker">Section 14</div>
+  <h2>Coverage and continuity</h2>
+  <p>Recruitment windows don't pause when someone is away. The team keeps studies running by keeping records current enough that anyone can step in.</p>
+  <h3>Every day</h3>
+  <ul>
+    <li>Keep your recruitment logs, eIVF notes and tracker entries up to date by the end of the day.</li>
+    <li>Note any pending action (a call-back, a booked visit, a sample to ship) where Swati can see it.</li>
+  </ul>
+  <h3>Before a planned absence</h3>
+  <ul>
+    <li>Update the tracker's <strong>"Important notes during absence"</strong> and <strong>"Task delegation"</strong> columns for each of your studies.</li>
+    <li>Hand over open referrals, upcoming visits and time-sensitive items to Swati, with patient study IDs and next steps.</li>
+    <li>Flag any renewal, report or agreement due while you're away.</li>
+  </ul>
+  <h3>When you return, or when you cover for someone</h3>
+  <ul>
+    <li>Review the handover notes and the tracker before contacting any patient.</li>
+    <li>Check the MSFResearch mailbox and eIVF tasks for anything that arrived during the absence.</li>
+  </ul>
+</section>
+
+<!-- 15 -->
+<section class="pg" id="s15" data-title="Onboarding schedule" hidden>
+  <div class="kicker">Section 15</div>
+  <h2>Onboarding schedule</h2>
+  <p>A tentative day-by-day plan, September 29 – October 30. Each day runs 08:00–12:00 and 13:00–16:00, with lunch from 12:00 to 13:00. Tick items as you complete them; the links jump to the section each item covers.</p>
+  <div class="standing">
+    <div><b>Daily, from Week 2</b>Referral check at 08:00–08:30 and 13:00–13:15 (eIVF tasks and the MSFResearch mailbox)</div>
+    <div><b>Fridays</b>Weekly check-in with Swati</div>
+    <div><b>Oct 16 · Oct 30</b>Mid-point review and final sign-off with Swati and Dr. Michaeli</div>
+  </div>
+  <div class="legend">
+    <span><i style="background:var(--meet)"></i>Meeting</span>
+    <span><i style="background:var(--accent)"></i>Shadowing / recruitment</span>
+    <span><i style="background:var(--ok)"></i>Training / tutorial</span>
+    <span><i style="background:var(--muted)"></i>Reading / admin</span>
+    <span><i style="background:var(--flag)"></i>Course</span>
+  </div>
+  <div id="sched"></div>
+  <h3>Physician meetings still to book</h3>
+  <p>Drs. Liu, Russo, Shapiro, Pereira and Hamilton, plus the time for Dr. Greenblatt on October 26. Placeholders are on October 16 and 22; the afternoon recruitment blocks in Weeks 4–5 also work.</p>
+  <h3>Sign-off</h3>
+  <div class="signoff">
+    <div class="callout"><h4>Mid-point review · Oct 16</h4>
+      <label class="chk"><input type="checkbox" data-id="so-mid-sd"><span>Swati Dixit</span></label>
+      <label class="chk"><input type="checkbox" data-id="so-mid-jm"><span>Dr. Jennia Michaeli</span></label></div>
+    <div class="callout"><h4>Final sign-off · Oct 30</h4>
+      <label class="chk"><input type="checkbox" data-id="so-fin-sd"><span>Swati Dixit</span></label>
+      <label class="chk"><input type="checkbox" data-id="so-fin-jm"><span>Dr. Jennia Michaeli</span></label></div>
+  </div>
+</section>
+
+<!-- 16 -->
+<section class="pg" id="s16" data-title="Glossary" hidden>
+  <div class="kicker">Section 16</div>
+  <h2>Glossary</h2>
+  <h3>Clinical terms</h3>
+  <dl class="gl">
+    <dt>AMH</dt><dd>Anti-Müllerian hormone; a blood test of ovarian reserve.</dd>
+    <dt>AFC</dt><dd>Antral follicle count; an ultrasound measure of ovarian reserve.</dd>
+    <dt>COS</dt><dd>Controlled ovarian stimulation: daily hormone injections to grow several follicles.</dd>
+    <dt>FSH / LH</dt><dd>Follicle-stimulating and luteinizing hormones; Gonal-F (FSH) and Luveris (LH) are stimulation drugs.</dd>
+    <dt>Trigger</dt><dd>The injection that finalizes egg maturation about 36 hours before retrieval.</dd>
+    <dt>IUI</dt><dd>Intrauterine insemination.</dd>
+    <dt>IVF / ICSI</dt><dd>In vitro fertilization; intracytoplasmic sperm injection (one sperm injected into each egg).</dd>
+    <dt>MI / MII</dt><dd>Immature (metaphase I) and mature (metaphase II) eggs.</dd>
+    <dt>Blastocyst</dt><dd>An embryo at day 5–7 of development.</dd>
+    <dt>Vitrification</dt><dd>Rapid freezing of eggs or embryos.</dd>
+    <dt>FET</dt><dd>Frozen embryo transfer.</dd>
+    <dt>PGT-A</dt><dd>Preimplantation genetic testing for aneuploidy (euploid = normal chromosome number; aneuploid = abnormal).</dd>
+    <dt>OHSS</dt><dd>Ovarian hyperstimulation syndrome, a complication of stimulation.</dd>
+    <dt>RPL</dt><dd>Recurrent pregnancy loss.</dd>
+    <dt>MVA</dt><dd>Manual vacuum aspiration, used to manage early pregnancy loss.</dd>
+    <dt>NP</dt><dd>Nurse practitioner.</dd>
+  </dl>
+  <h3>Research and admin terms</h3>
+  <dl class="gl">
+    <dt>REB</dt><dd>Research Ethics Board.</dd>
+    <dt>SHORES</dt><dd>The Sinai Health REB's online submission system.</dd>
+    <dt>TCPS 2</dt><dd>Tri-Council Policy Statement on ethical conduct for research involving humans.</dd>
+    <dt>GCP</dt><dd>Good Clinical Practice (ICH E6), the standard for running clinical trials.</dd>
+    <dt>Division 5</dt><dd>The part of Canada's Food and Drug Regulations covering drug clinical trials.</dd>
+    <dt>PHIPA</dt><dd>Ontario's Personal Health Information Protection Act.</dd>
+    <dt>CTO</dt><dd>Clinical Trials Ontario, which runs single ethics review for multi-site studies.</dd>
+    <dt>RCT</dt><dd>Randomized controlled trial.</dd>
+    <dt>QI</dt><dd>Quality improvement.</dd>
+    <dt>Delegation log</dt><dd>The record of which team members are authorized for which study tasks.</dd>
+    <dt>Deviation</dt><dd>Any departure from the approved protocol.</dd>
+    <dt>IO</dt><dd>Internal order (cost centre) holding a study's funds.</dd>
+    <dt>Float</dt><dd>A cash advance for participant reimbursements.</dd>
+    <dt>CTA / DSA / MTA</dt><dd>Clinical trial, data-sharing and material-transfer agreements.</dd>
+    <dt>TDG</dt><dd>Transportation of Dangerous Goods (shipping biological specimens).</dd>
+    <dt>eIVF</dt><dd>The clinic's electronic medical record.</dd>
+    <dt>REDCap</dt><dd>Secure web platform for study databases and surveys.</dd>
+    <dt>CARTR Plus / BORN</dt><dd>National assisted-reproduction registry / Ontario's birth outcomes registry.</dd>
+  </dl>
+</section>
+
+<div class="pager"><button id="prev" type="button"></button><button id="next" type="button"></button></div>
+</main>
+</div>
+
+<script>
+const STUDIES = [{"t": "Fertility and Gynecologic Concerns in the Adult Congenital Heart Disease Population", "reb": "18-0298-E", "type": "Prospective", "pi": "Dr. Ellen Greenblatt", "fund": "", "note": ""}, {"t": "Onco fert database with REDCAP", "reb": "19-0363-E", "type": "Prospective", "pi": "Dr. Ellen Greenblatt", "fund": "", "note": ""}, {"t": "Unveiling the true aneuploidy rate in non-infertile vs. infertile patients: A comparison of patients undergoing PGT-M and PGT-A vs. PGT-A only", "reb": "23-0107-C", "type": "Retrospective", "pi": "Dr. Ellen Greenblatt", "fund": "", "note": ""}, {"t": "Frozen Embryo Transfers Using Natural Cycle Vs. Artificial Cycle Protocol: A Retrospective Study", "reb": "17-0206-E", "type": "Retrospective", "pi": "Dr. Ellen Greenblatt", "fund": "", "note": ""}, {"t": "FSH and LH versus FSH alone for ovarian response in non-hormone sensitive onco-fertility patients: a randomized, double-blinded, controlled trial", "reb": "20-0204-A", "type": "Prospective", "pi": "Dr. Ellen Greenblatt", "fund": "", "note": ""}, {"t": "The association of angiogenic markers in serum blood and trophoblast cervical samples in those undergoing non-ovulatory and ovulatory frozen embryo transfer cycles: a prospective pilot cohort study", "reb": "24-0084-E", "type": "Prospective", "pi": "Dr. Ellen Greenblatt", "fund": "PSI grant; Department grant", "note": ""}, {"t": "BRCA follicular fluid study", "reb": "19-0050-E", "type": "Co-PI", "pi": "Dr. Ellen Greenblatt", "fund": "", "note": ""}, {"t": "Determination of type and incidence of aneuploidies from genetic evaluation of POC: Comparing losses after fertility treatment, PGT-A and RPL patients", "reb": "22-0126-C", "type": "Retrospective", "pi": "Dr. Ellen Greenblatt", "fund": "", "note": ""}, {"t": "The association of serum Plgf-1 levels and obstetrical outcomes in patients undergoing non-ovulatory and ovulatory frozen embryo transfer cycles: a large observational study", "reb": "", "type": "Co-PI", "pi": "Dr. Ellen Greenblatt", "fund": "", "note": ""}, {"t": "Shift Work as a Potential Risk Factor for Diminished Ovarian Reserve: A Study of Fertility Patients", "reb": "23-0029-C", "type": "Retrospective", "pi": "Dr. Claire Jones", "fund": "", "note": ""}, {"t": "Fertilization failure and outcomes of IVF cycles using conventional IVF vs. ICSI with frozen donor sperm", "reb": "22-0081-C", "type": "Retrospective", "pi": "Dr. Claire Jones", "fund": "Fellberg grant", "note": ""}, {"t": "The use of virtual reality technology during oocyte retrieval for in vitro fertilization: A pilot randomized controlled study", "reb": "24-0033-E", "type": "Prospective", "pi": "Dr. Claire Jones", "fund": "Department grant", "note": ""}, {"t": "PGT for aneuploidy: needs assessment", "reb": "20-0169-E", "type": "Prospective", "pi": "Dr. Claire Jones", "fund": "", "note": ""}, {"t": "Examining improvements in quality of life and satisfaction using an online Facebook peer support group", "reb": "23-0034-E", "type": "Prospective", "pi": "Dr. Claire Jones", "fund": "U of T grant", "note": ""}, {"t": "What’s In a Name? Patient Perspectives on Renaming PCOS to PMOS", "reb": "", "type": "To classify", "pi": "Dr. Claire Jones", "fund": "", "note": ""}, {"t": "Development of “FERT-BURDEN”, a Patient-Reported Outcome Measure for treatment burden in fertility care", "reb": "", "type": "To classify", "pi": "Dr. Claire Jones", "fund": "", "note": ""}, {"t": "Max Gonadotropin Dosing in IVF: Comparing FSH 300–375 IU and >375 IU", "reb": "", "type": "To classify", "pi": "Dr. Claire Jones", "fund": "", "note": ""}, {"t": "Using Machine Learning to Optimize In Vitro Fertilization (IVF) treatments", "reb": "22-0219-C", "type": "Retrospective", "pi": "Dr. Kimberly Liu", "fund": "2023 Fellberg Family Award", "note": ""}, {"t": "IVF vs. ICSI in frozen donor sperm cycles", "reb": "21-0268-C", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Exploring the correlation between the day of euploid embryo blastulation/biopsy and its MitoScore, and clinical pregnancy outcomes resulting from transferred embryos", "reb": "23-0190-C", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Visualizing human fertilization: insights into sperm-egg binding and fusion process through IZUMO sperm ligand and JUNO egg receptor\"", "reb": "22-0164-E", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Fertility follow-up and preservation in survivors of pediatric cancer – PAC best practice survey", "reb": "25-0049-E", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Exploring Premature Ovulation in In Vitro Fertilisation (IVF) cycles at Mount Sinai Fertility", "reb": "", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Comparison of embryology and clinical outcomes utilizing frozen oocytes compared to fresh oocytes. Sub-analysis by oocyte origin Autologous vs. Donor, and indication for freezing urgent vs. planned in Autologous cycles: A single center experience.", "reb": "", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "IVF cycles outcomes in patients requiring a “rescue” increased dose of GnRH antagonist for elevated LH levels", "reb": "22-0157-C", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Controversy regarding ovarian reserve in BRCA 1/2 mutations carriers: Does mutation variant explain the literature discrepancies? (eSubmission)", "reb": "22-0094-E", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Fert pres consortium- multicentre collaboration", "reb": "22-0064-C", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Validation study: Ovarian tissue cryopreservation for fertility preservation in people with ovaries- validation of institutional protocols for tissue processing, freezing, and thawing", "reb": "24-0082-A", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Dual staining of cryopreserved thawed ovarian tissue for detection of viability", "reb": "", "type": "To classify", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Systematic reviews: Length of oocyte freezing; Testosterone exposure during stimulation; IVF/ICSI split cycles; HCG exposure in early pregnancy", "reb": "", "type": "To classify", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "The Telomere Link Between Aging and Fertility: Exploring Leukocyte Telomere Length as a Biomarker for Oocyte Quality", "reb": "", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "SHSF 2025 SEED Grant", "note": ""}, {"t": "Optimizing Ovarian Tissue Transplantation Outcomes‐ Effect of ovarian tissue fragment size on revascularization dynamics", "reb": "", "type": "Animal model", "pi": "Dr. Jennia Michaeli", "fund": "SHS ObGyn Dept – 2024 Sam Bodnarchuk Award", "note": ""}, {"t": "Strategies to Engage Fertility Patients in Donating Reproductive Material to Research- A Quality Improvement Project", "reb": "", "type": "QI", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Survey of fertility clinics regarding eligibility for funded fertility preservation in Transgender and gender diverse individuals with ovaries prior to starting testosterone therapy", "reb": "", "type": "QI", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "The current state of oncofertility education across Canadian medical schools, residencies, and fellowships: a survey-based study", "reb": "", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "FP care for oncologic indications across Canada", "reb": "", "type": "To classify", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Approaches to block human sperm-egg fusion", "reb": "", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Increasing Referrals for Ovarian Tissue Cryopreservation in Pediatric and Adolescent Cancer Patients", "reb": "", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "OICR grant (with SickKids and Princess Margaret)", "note": ""}, {"t": "Culturally Informed Education on Oncofertility for Inuit Patients and Nunavummiut Healthcare Providers", "reb": "", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "CFAS grant", "note": ""}, {"t": "Viability Assessment of Frozen-Thawed Ovarian Tissue", "reb": "", "type": "Screening", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Implementation of the Canadian Hub-and-Spoke Model in Ontario for OTC and Centralized Cryobanking: A Case Series", "reb": "", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "Evaluating a Dedicated Oncofertility AfterCare Clinic for Childhood Cancer Survivors", "reb": "CTO-5733", "type": "Prospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": "Sub-site with Princess Margaret and SickKids (CTO)"}, {"t": "Chaotic Embryo Rebiopsy", "reb": "", "type": "Retrospective", "pi": "Dr. Jennia Michaeli", "fund": "", "note": ""}, {"t": "The Impact of Funding on the Use of ICSI in Non-male Factor Infertility: A CARTR-BORN Retrospective Study", "reb": "21-0011-C", "type": "Retrospective", "pi": "Dr. Miguel Russo", "fund": "Department grant", "note": ""}, {"t": "Dual Trigger, randomized, double-blinded, RCT", "reb": "17-0302-A", "type": "Prospective", "pi": "Dr. Miguel Russo", "fund": "", "note": ""}, {"t": "Reproductive outcomes of IVF-ICSI with MI to MII oocytes compared to MII sibling oocytes", "reb": "22-0201-C", "type": "Retrospective", "pi": "Dr. Miguel Russo", "fund": "", "note": ""}, {"t": "Risk of PGT-A (Preimplantation Genetic Testing for Aneuploidies) in Severe Male Factor Patients Embryos", "reb": "22-0234-C", "type": "Retrospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Prevalence of endometrial dysbiosis in patients with a persistently thin endometrial lining undergoing assisted reproduction: a prospective study submitted for PGME Research award", "reb": "24-0109-A", "type": "Prospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Preimplantation Genetic Testing (PGT-A) for Patients with Recurrent Pregnanc y Loss (RPL): Does it make a difference?", "reb": "24-0240-C", "type": "Retrospective", "pi": "Dr. Vanessa Bacal", "fund": "2025 Barb Cruickshank Divisional Research Award", "note": ""}, {"t": "Prevalence of IVF Drop-Out: An Investigation on Patient and Cycle Characteristics", "reb": "24-0167-C", "type": "Retrospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Is there an association between the gonadotropin agent choice and estradiol:oocyte ratio in In Vitro Fertilization cycles?", "reb": "25-0026-C", "type": "Retrospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Day 5 fresh transfer of a single slow-growing morula: Is it worth it?", "reb": "", "type": "Retrospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Extended Culture of Day 5 Morulae: Implications for Top Quality Blastocyst Formation and PGT-A Eligibility", "reb": "", "type": "Retrospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Prevalence of endometrial dysbiosis in patients with a persistently thin endometrial lining undergoing assisted reproduction: a retrospective study.", "reb": "24-0054-C", "type": "Retrospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Evaluating the impact of time-lapse technology on embryologists' workflow efficiency: a pre- and post-intervention study using six sigma methodology", "reb": "", "type": "QI", "pi": "Dr. Vanessa Bacal", "fund": "", "note": "Submitted as a QI project"}, {"t": "Chronic endometritis: understanding the role of infection and inflammation in the infertile and recurrent pregnancy loss populations", "reb": "23-0094-A", "type": "Prospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Microbiome analysis in woman with idiopathic recurrent pregnancy loss – a pilot study", "reb": "", "type": "Prospective", "pi": "Dr. Vanessa Bacal", "fund": "Submitted to PSI", "note": ""}, {"t": "Improving Patient Experience and Access to Care in Ectopic Pregnancy: A Quality Improvement Initiative at a Fertility Clinic", "reb": "", "type": "QI", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "QI Study: Optimizing Early Pregnancy Loss Management at Mount Sinai Fertility: A Quality Improvement Initiative", "reb": "", "type": "QI", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "Microbiome Analysis Uterus and Vagina", "reb": "", "type": "Prospective", "pi": "Dr. Vanessa Bacal", "fund": "Planned: Weston Foundation / PSI applications", "note": ""}, {"t": "Prevalence of IVF Drop-Out: An Investigation of Patient and Cycle Characteristics", "reb": "", "type": "Prospective", "pi": "Dr. Vanessa Bacal", "fund": "Submitted to PSI", "note": ""}, {"t": "The development of decision aid for the use of preimplantation genetic testing for aneuploid (PGT-A) among patients with recurrent pregnancy loss (RPL)", "reb": "", "type": "Prospective", "pi": "Dr. Vanessa Bacal", "fund": "", "note": ""}, {"t": "A Case Series of Microbial Contamination within the IVF Laboratory and Reproductive Outcomes", "reb": "23-0212-C", "type": "Retrospective", "pi": "Dr. Heather Shapiro", "fund": "", "note": ""}, {"t": "Identification of Baseline Microbiological Contamination within the Embryology Laboratory", "reb": "23-0209-E", "type": "Prospective", "pi": "Dr. Heather Shapiro", "fund": "", "note": ""}, {"t": "Qualitative Study on Experiences of Black Patients Accessing Ongoing Fertility Care Upon Completing One Cycle of Government-Funded IVF Treatment", "reb": "23-0154-E", "type": "Prospective", "pi": "Dr. Heather Shapiro", "fund": "CFAS grant", "note": ""}, {"t": "Identification of Endometrial Factors that may Impact Pregnancy Outcome in Frozen Embryo Transfer", "reb": "22-0124-E", "type": "Retrospective", "pi": "Dr. Heather Shapiro", "fund": "", "note": ""}, {"t": "Identification and Retrospective Validation of Endometrial Factors that may Impact Pregnancy Outcome in Frozen Embryo Transfer", "reb": "22-0125-C", "type": "Retrospective", "pi": "Dr. Heather Shapiro", "fund": "", "note": ""}, {"t": "Estimating the incidence and severity of ovarian hyperstimulation syndrome (OHSS) after solitary gonadotropin-releasing hormone agonist (GnRH-a) trigger", "reb": "25-0024-C", "type": "Retrospective", "pi": "Dr. Nigel Pereira", "fund": "", "note": ""}, {"t": "Evaluating the utility of manual hysteroscopy tissue removal (mHTR) devices for operative hysteroscopy (Op-HSC) in an office setting", "reb": "24-0132-C", "type": "Retrospective", "pi": "Dr. Nigel Pereira", "fund": "", "note": ""}, {"t": "Blind Trigger | Conventional or Prospective ovulatory trigger in assisted reproductive technology", "reb": "", "type": "Retrospective", "pi": "Dr. Nigel Pereira", "fund": "No funding", "note": ""}, {"t": "Manual vacuum aspiration (MVA) for the management of early pregnancy loss (EPL) in the office setting", "reb": "", "type": "Retrospective", "pi": "Dr. Nigel Pereira", "fund": "No funding", "note": ""}, {"t": "Comparison of microfluidic and density-gradient sperm processing in intracytoplasmic sperm injection (ICSI) and embryo transfer (ET) cycles", "reb": "", "type": "Prospective", "pi": "Dr. Nigel Pereira", "fund": "", "note": ""}, {"t": "Ovarian hyperstimulation syndrome (OHSS) in Ontario, Canada: temporal trends and health care burden", "reb": "", "type": "To classify", "pi": "Dr. Nigel Pereira", "fund": "", "note": ""}, {"t": "Evaluation of “RetrievED” online oocyte retrieval training module: a mixed-methods study", "reb": "", "type": "To classify", "pi": "Dr. Nigel Pereira", "fund": "", "note": ""}, {"t": "Fertility Preservation and Reproductive Outcomes in TGD Individuals AFAB", "reb": "", "type": "To classify", "pi": "Dr. Nigel Pereira", "fund": "", "note": ""}, {"t": "Validation of a Rapid Warming Method for Vitrified Blastocysts at Mount Sinai Fertility", "reb": "24-0229-E", "type": "Retrospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Oocyte Global Score: Development of Oocyte Grading Score as a Support Tool for Embryo Selection: A Retrospective Study Exploring the Association between Oocyte Morphologic features and Clinical Outcomes of Oocytes collected at Mount Sinai Fertility.", "reb": "24-0243-C", "type": "Retrospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Timing Matters: Clinical Outcomes of Day 5, 6, and 7 Blastocyst Transfers in Donor Egg Thaw Cycles as Influenced by PGT-A and Embryo Morphology", "reb": "", "type": "Retrospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Outcomes of Rescue ICSI Following Total Fertilization Failure: A Retrospective Single-Center Study", "reb": "", "type": "Retrospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Impact of Ovarian stimulation protocol on follicle development: A Retrospective Study Exploring the Association between ovarian stimulation protocols and follicle development at Mount Sinai Fertility.", "reb": "24-0188-C", "type": "Retrospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Impact of Team-Based Versus Individual-Based Approaches Among Embryologists on IVF Success Rates", "reb": "", "type": "Prospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Evaluating Molecular and Functional Effects of Antiretroviral Agents on Sperm", "reb": "", "type": "Prospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Assessing the Impact of Antiretroviral Therapy on Fertility-Related Sperm Markers in Males with and without HIV; a pilot stud", "reb": "", "type": "Prospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "The Impact of Intrauterine Insemination (IUI) Anxiety and Stress on Fertility Outcomes", "reb": "", "type": "Prospective", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Optimizing the IVF Patient Journey: Identifying Gaps and Enhancing Care from Initial Consultation to Treatment Completion.", "reb": "", "type": "QI", "pi": "Dr. Chidambra Halari", "fund": "", "note": ""}, {"t": "Trans female sperm parameters prior to gender affirming hormone therapy compared to WHO sperm reference standard; a retrospective, descriptive cohort study", "reb": "25-0019-C", "type": "Retrospective", "pi": "Dr. Scot Hamilton", "fund": "", "note": ""}];
+
+// ---------- schedule data ----------
+// kinds: meet, shadow, train, read, course
+const W = [
+ {t:"Week 1 · Orientation, access, training", s:"September 29 – October 2", days:[
+  {d:"Tue", n:"Sep 29", am:[["shadow","Welcome with Swati: tour of MSF (250 Dundas W) and the research desk, introductions","s1"],["read","ID badge, network login and email","s6"],["read","Read Sections 1–3","s1"]],
+    pm:[["train","Privacy / PHIPA training","s6"],["read","Mailbox and shared drive access","s6"],["read","Register for the Health Research Methodology course","s12"],["read","Read Section 4 (people)","s4"]]},
+  {d:"Wed", n:"Sep 30", note:"Depends on whether the hospital observes Truth and Reconciliation Day", am:[["train","TCPS 2 CORE-2022 (part 1)","s6"]], pm:[["train","TCPS 2 CORE-2022 (part 2)","s6"],["read","Read Section 2, including the IVF journey box","s2"]]},
+  {d:"Thu", n:"Oct 1", am:[["train","eIVF training videos + eIVF walkthrough with Swati","s10"],["read","Request REDCap and Zoom accounts","s6"]], pm:[["read","Read Section 5 (recruitment)","s5"],["meet","15:00 Meet Dr. Jones (on site)","s4"]]},
+  {d:"Fri", n:"Oct 2", am:[["shadow","Shadow Swati: referral check and contact calls","s5"],["read","Confirm GCP certificate is on file","s6"]], pm:[["train","Finish TCPS 2 and file certificates","s6"],["read","Read Section 6","s6"],["meet","15:00 Weekly check-in with Swati","s13"]]}
+ ]},
+ {t:"Week 2 · Shadowing and study knowledge", s:"October 5 – 9", days:[
+  {d:"Mon", n:"Oct 5", am:[["shadow","Shadow Swati: recruitment calls","s5"],["read","Start one-page cheat sheets for each recruiting study","s5"]], pm:[["meet","13:00–14:00 Meet Dr. Michaeli","s1"],["read","Read Section 11 (portfolio)","s11"]]},
+  {d:"Tue", n:"Oct 6", am:[["shadow","Shadow Swati: consent discussions and a study visit","s5"]], pm:[["train","REDCap basic training","s10"],["read","Read Section 10 (systems)","s10"]]},
+  {d:"Wed", n:"Oct 7", am:[["shadow","Shadow: study visit coordination with nursing, phlebotomy and pharmacy","s4"],["shadow","Introduce yourself to referring clinicians (NPs and fellows)","s5"]], pm:[["train","Health Canada Division 5 training","s6"],["train","Simple Survey intro with Swati","s10"]]},
+  {d:"Thu", n:"Oct 8", am:[["meet","Embryology lab with Dr. Chidambra Halari: lab tour, study sample processing, her studies (time to confirm)","s4"]], pm:[["train","Finish Division 5","s6"],["read","Request SHORES access","s6"],["read","Read Section 7 (REB)","s7"]]},
+  {d:"Fri", n:"Oct 9", am:[["shadow","Shadow the referral routine","s5"],["read","Set up your recruitment log","s5"]], pm:[["read","Finish reading Section 7","s7"],["meet","14:30 Meet Dr. Bacal","s4"],["meet","15:30 Weekly check-in with Swati","s13"]]}
+ ]},
+ {t:"Week 3 · Supervised recruitment and REB", s:"October 13 – 16", days:[
+  {d:"Mon", n:"Oct 12", off:"Thanksgiving (statutory holiday)"},
+  {d:"Tue", n:"Oct 13", am:[["shadow","Supervised recruitment: you run the referral check and contact calls; Swati observes","s5"]], pm:[["train","SHORES training","s6"],["read","REB lifecycle walkthrough with Swati","s7"],["read","Prepare your own personnel amendment","s7"]]},
+  {d:"Wed", n:"Oct 14", am:[["shadow","Supervised recruitment","s5"],["shadow","Observed consent #1","s5"]], pm:[["read","REB MasterFile walkthrough","s7"],["read","Start the tracker update (renewals due in the next 60 days)","s7"]]},
+  {d:"Thu", n:"Oct 15", am:[["shadow","Supervised recruitment","s5"],["shadow","Observed consent #2","s5"],["shadow","Send reminders to referring clinicians","s5"]], pm:[["read","Continue the tracker project","s7"],["read","Draft ideas for upgrading the tracker (renewal alerts, agreements log)","s7"]]},
+  {d:"Fri", n:"Oct 16", am:[["shadow","Supervised recruitment","s5"],["read","Update your recruitment log","s5"]], pm:[["meet","Physician meeting (to be booked)","s4"],["meet","15:00 Mid-point review with Swati and Dr. Michaeli","s13"]]}
+ ]},
+ {t:"Week 4 · Independent recruitment, finance, agreements", s:"October 19 – 23", days:[
+  {d:"Mon", n:"Oct 19", am:[["shadow","Independent recruitment (Swati available)","s5"]], pm:[["read","Read Section 8","s8"],["read","Finance walkthrough with Swati: invoices, floats, salary invoices","s8"]]},
+  {d:"Tue", n:"Oct 20", am:[["shadow","Recruitment","s5"]], pm:[["train","TDG training (biological specimens)","s6"]]},
+  {d:"Wed", n:"Oct 21", am:[["shadow","Recruitment","s5"],["read","Walkthrough of sample packaging and shipping","s6"]], pm:[["read","Read Section 9","s9"],["read","Review pending agreements; start the agreements log","s9"]]},
+  {d:"Thu", n:"Oct 22", am:[["shadow","Recruitment","s5"]], pm:[["train","NVivo tutorial (UofT Map & Data Library)","s6"],["read","Read Sections 13–14","s13"],["meet","Physician meeting (to be booked)","s4"]]},
+  {d:"Fri", n:"Oct 23", am:[["shadow","Recruitment","s5"],["read","Finish the tracker update","s7"]], pm:[["read","Pre-course reading: EQUATOR checklists","s12"],["meet","15:00 Weekly check-in with Swati: recruitment numbers","s13"]]}
+ ]},
+ {t:"Week 5 · Wrap-up and methodology course", s:"October 26 – 30", days:[
+  {d:"Mon", n:"Oct 26", am:[["shadow","Recruitment","s5"]], pm:[["meet","Meet Dr. Greenblatt (on site, time to confirm)","s4"],["read","Close out any remaining training and certificates","s6"]]},
+  {d:"Tue", n:"Oct 27", am:[["shadow","Recruitment","s5"]], pm:[["read","Read Section 12","s12"],["read","Complete the \u201cYou're ready when\u2026\u201d checklists","s1"]]},
+  {d:"Wed", n:"Oct 28", am:[["course","Methodology course, Day 1 (link opens 08:45)","s12"]], pm:[["course","Course until 14:50","s12"],["shadow","15:00 Referral check","s5"]]},
+  {d:"Thu", n:"Oct 29", am:[["course","Methodology course, Day 2","s12"]], pm:[["course","Course until 14:20","s12"],["shadow","Referral check","s5"],["read","Draft your reflection","s12"]]},
+  {d:"Fri", n:"Oct 30", am:[["course","Methodology course, Day 3","s12"]], pm:[["course","Course until 15:00","s12"],["meet","15:15 Final sign-off with Swati and Dr. Michaeli (reflection and checklist)","s13"]]}
+ ]}
+];
+
+function esc(s){return String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]))}
+function slug(s){return s.replace(/[^a-z0-9]+/gi,"-").toLowerCase()}
+
+// render schedule
+(function(){
+  const host=document.getElementById("sched"); let html="";
+  W.forEach((w,wi)=>{
+    html+=`<div class="week"><h3>${esc(w.t)}</h3><p class="wsub">${esc(w.s)}</p>`;
+    w.days.forEach(day=>{
+      if(day.off){html+=`<div class="day off"><div class="dd"><b>${day.d}</b><small>${day.n}</small></div><div class="blk">${esc(day.off)}</div></div>`;return;}
+      const blk=(items,label,key)=>`<div class="blk"><div class="h">${label}</div>`+items.map((it,ii)=>{
+        const id=`sc-${slug(day.n)}-${key}${ii}`;
+        return `<label class="it ${it[0]}"><input type="checkbox" data-id="${id}"><span class="k">${esc(it[1])}<a href="#${it[2]}" title="Go to section">§${it[2].slice(1)}</a></span></label>`;
+      }).join("")+`</div>`;
+      html+=`<div class="day"><div class="dd"><b>${day.d}</b><small>${day.n}</small>${day.note?`<div><span class="tbc" title="${esc(day.note)}">To confirm</span></div>`:""}</div>${blk(day.am,"08:00–12:00","a")}${blk(day.pm,"13:00–16:00","p")}</div>`;
+      if(day.note) html+=`<p class="muted" style="font-size:12.5px;margin:-2px 0 8px 4px">${esc(day.n)}: ${esc(day.note)}.</p>`;
+    });
+    html+=`</div>`;
+  });
+  host.innerHTML=html;
+})();
+
+// render studies
+(function(){
+  const pis=[...new Set(STUDIES.map(s=>s.pi))].sort(), types=[...new Set(STUDIES.map(s=>s.type))].sort();
+  const fpi=document.getElementById("fpi"), ft=document.getElementById("ftype"), q=document.getElementById("q");
+  pis.forEach(p=>fpi.insertAdjacentHTML("beforeend",`<option>${esc(p)}</option>`));
+  types.forEach(t=>ft.insertAdjacentHTML("beforeend",`<option>${esc(t)}</option>`));
+  const cls=t=>t==="Prospective"?"pros":t==="QI"?"qi":t==="To classify"?"tc":"";
+  function draw(){
+    const qq=q.value.trim().toLowerCase();
+    const rows=STUDIES.filter(s=>(!fpi.value||s.pi===fpi.value)&&(!ft.value||s.type===ft.value)&&(!qq||(s.t+" "+s.reb+" "+s.fund+" "+s.note).toLowerCase().includes(qq)));
+    document.getElementById("stbody").innerHTML=rows.map(s=>`<tr><td>${esc(s.t)}${s.type==="Prospective"?' <span class="pill pros">Recruiting</span>':""}${s.note?`<div class="muted" style="font-size:12.5px">${esc(s.note)}</div>`:""}</td><td>${s.reb?`<span class="reb">${esc(s.reb)}</span>`:'<span class="muted">—</span>'}</td><td><span class="pill ${cls(s.type)}">${esc(s.type)}</span></td><td style="white-space:nowrap">${esc(s.pi)}</td><td>${s.fund?esc(s.fund):'<span class="muted">—</span>'}</td></tr>`).join("");
+    document.getElementById("scount").textContent=`Showing ${rows.length} of ${STUDIES.length} active studies`;
+  }
+  [fpi,ft].forEach(e=>e.addEventListener("change",draw)); q.addEventListener("input",draw); draw();
+})();
+
+// ---------- navigation ----------
+const pages=[...document.querySelectorAll("section.pg")];
+const toc=document.getElementById("toc"), mob=document.getElementById("mobsel");
+pages.forEach((p,i)=>{
+  toc.insertAdjacentHTML("beforeend",`<li><a href="#${p.id}" data-p="${p.id}"><span class="n">${String(i+1).padStart(2,"0")}</span><span>${esc(p.dataset.title)}</span></a></li>`);
+  mob.insertAdjacentHTML("beforeend",`<option value="${p.id}">${i+1}. ${esc(p.dataset.title)}</option>`);
+});
+const prev=document.getElementById("prev"), next=document.getElementById("next");
+function show(id,scroll){
+  let i=pages.findIndex(p=>p.id===id); if(i<0) i=0;
+  pages.forEach((p,j)=>p.hidden=j!==i);
+  toc.querySelectorAll("a").forEach(a=>a.setAttribute("aria-current",a.dataset.p===pages[i].id?"true":"false"));
+  mob.value=pages[i].id;
+  prev.hidden=i===0; next.hidden=i===pages.length-1;
+  if(i>0) prev.textContent="← "+pages[i-1].dataset.title;
+  if(i<pages.length-1) next.textContent=pages[i+1].dataset.title+" →";
+  prev.dataset.t=i>0?pages[i-1].id:""; next.dataset.t=i<pages.length-1?pages[i+1].id:"";
+  try{localStorage.setItem("rei-onb-page",pages[i].id)}catch(e){}
+  if(scroll) window.scrollTo({top:0});
+}
+function go(id){ if(location.hash!=="#"+id) location.hash=id; else show(id,true); }
+window.addEventListener("hashchange",()=>show(location.hash.slice(1),true));
+prev.onclick=()=>go(prev.dataset.t); next.onclick=()=>go(next.dataset.t);
+mob.onchange=()=>go(mob.value);
+let start=location.hash.slice(1); if(!start){try{start=localStorage.getItem("rei-onb-page")||""}catch(e){}}
+show(start||"s1",false);
+
+// ---------- progress (shared via db when available, else this browser) ----------
+const boxes=[...document.querySelectorAll("input[type=checkbox][data-id]")];
+let state={}, db=null, docRef=null, writing=Promise.resolve();
+function paint(){
+  let done=0;
+  boxes.forEach(b=>{const v=!!(state[b.dataset.id]&&state[b.dataset.id].done); b.checked=v; b.closest("label").classList.toggle("done",v); if(v) done++;});
+  const pct=Math.round(done*100/boxes.length);
+  document.getElementById("pct").textContent=pct+"%";
+  document.getElementById("barfill").style.width=pct+"%";
+  document.getElementById("barfill2").style.width=pct+"%";
+}
+try{ state=JSON.parse(localStorage.getItem("rei-onb-state")||"{}")||{} }catch(e){ state={} }
+paint();
+function setSync(team){const s=document.getElementById("sync"); s.classList.toggle("team",team); s.lastElementChild.textContent=team?"Progress shared with the team":"Progress saved in this browser";}
+boxes.forEach(b=>b.addEventListener("change",()=>{
+  const id=b.dataset.id, entry={done:b.checked, at:new Date().toISOString()};
+  state[id]=entry; paint();
+  try{localStorage.setItem("rei-onb-state",JSON.stringify(state))}catch(e){}
+  if(docRef){
+    writing=writing.then(async()=>{
+      try{ const snap=await docRef.get(); if(snap.exists) await docRef.update({checks:{[id]:entry}}); else await docRef.set({checks:{[id]:entry}}); }
+      catch(e){ if(e&&e.code==="invalid_argument"){ setSync(false); docRef=null; } }
+    });
+  }
+}));
+(async()=>{
+  try{
+    if(!window.claude||!window.claude.use) return;
+    db=await window.claude.use("db"); if(!db) return;
+    docRef=db.doc("progress/andrea");
+    docRef.onSnapshot(snap=>{
+      if(snap.exists){ const c=(snap.data()||{}).checks||{}; state=Object.assign({},c); try{localStorage.setItem("rei-onb-state",JSON.stringify(state))}catch(e){} paint(); }
+      setSync(true);
+    },()=>{ setSync(false); docRef=null; });
+  }catch(e){}
+})();
+</script>
