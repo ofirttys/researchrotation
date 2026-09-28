@@ -1,175 +1,228 @@
 <title>REI Research Onboarding</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Literata:opsz,wght@7..72,500;7..72,600&family=IBM+Plex+Sans:ital,wght@0,400;0,500;0,600;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&display=swap">
 <style>
 :root{
-  --bg:#F3F6F6; --surface:#FFFFFF; --ink:#16262B; --muted:#55676C; --line:#D5DFDF;
-  --accent:#0B6B6F; --accent-ink:#FFFFFF; --accent-soft:#E0EFEE;
-  --flag:#8A5A12; --flag-soft:#FBF0DB; --ok:#2C7A4B; --ok-soft:#E3F2E8;
-  --meet:#5A3F8C; --meet-soft:#EEE8F7;
-  --serif:"Literata",Georgia,"Times New Roman",serif;
-  --sans:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --bg:#F7F4F6; --surface:#FFFFFF; --ink:#1D2233; --muted:#665F70; --line:#E5DDE2;
+  --navy:#1C2640; --navy-2:#26324F; --on-navy:#E9E6EF; --on-navy-muted:#A9AEC4;
+  --accent:#B0305C; --accent-ink:#FFFFFF; --accent-soft:#F8E6EC;
+  --flag:#8A5A12; --flag-soft:#FBF0DB; --ok:#2D7A64; --ok-soft:#E1F1EB;
+  --meet:#5B4596; --meet-soft:#ECE7F7; --read:#8C8497;
+  --serif:"Newsreader",Georgia,"Times New Roman",serif;
+  --sans:"Public Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  --side:288px;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
     color-scheme:dark;
-    --bg:#0D1618; --surface:#142124; --ink:#E2ECEC; --muted:#98ABAE; --line:#27393C;
-    --accent:#5CC2BC; --accent-ink:#0D1618; --accent-soft:#17363A;
-    --flag:#E7B25A; --flag-soft:#382B13; --ok:#6CC592; --ok-soft:#173326;
-    --meet:#B9A2E6; --meet-soft:#2A2340;
+    --bg:#15131A; --surface:#1E1B25; --ink:#ECE7EE; --muted:#A79FB0; --line:#332E3C;
+    --navy:#0F1424; --navy-2:#1B2238; --on-navy:#E9E6EF; --on-navy-muted:#9197AE;
+    --accent:#EC84A6; --accent-ink:#1A0E14; --accent-soft:#3A1E2A;
+    --flag:#E7B25A; --flag-soft:#382B13; --ok:#6CC5A6; --ok-soft:#173329;
+    --meet:#B9A2E6; --meet-soft:#2A2340; --read:#8E869A;
   }
 }
 :root[data-theme="dark"]{
   color-scheme:dark;
-  --bg:#0D1618; --surface:#142124; --ink:#E2ECEC; --muted:#98ABAE; --line:#27393C;
-  --accent:#5CC2BC; --accent-ink:#0D1618; --accent-soft:#17363A;
-  --flag:#E7B25A; --flag-soft:#382B13; --ok:#6CC592; --ok-soft:#173326;
-  --meet:#B9A2E6; --meet-soft:#2A2340;
+  --bg:#15131A; --surface:#1E1B25; --ink:#ECE7EE; --muted:#A79FB0; --line:#332E3C;
+  --navy:#0F1424; --navy-2:#1B2238; --on-navy:#E9E6EF; --on-navy-muted:#9197AE;
+  --accent:#EC84A6; --accent-ink:#1A0E14; --accent-soft:#3A1E2A;
+  --flag:#E7B25A; --flag-soft:#382B13; --ok:#6CC5A6; --ok-soft:#173329;
+  --meet:#B9A2E6; --meet-soft:#2A2340; --read:#8E869A;
 }
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font:15px/1.6 var(--sans);margin:0}
-a{color:var(--accent)}
+body{background:var(--bg);color:var(--ink);font:16px/1.6 var(--sans);margin:0}
+a{color:var(--accent);text-underline-offset:2px}
 :focus-visible{outline:2px solid var(--accent);outline-offset:2px}
-.wrap{display:grid;grid-template-columns:270px minmax(0,1fr);max-width:1240px;margin:0 auto;padding-inline:24px;gap:40px}
-header.top{max-width:1240px;margin:0 auto;padding:28px 24px 8px;display:flex;flex-wrap:wrap;gap:8px 24px;align-items:flex-end;justify-content:space-between}
-.top .eyebrow{font:500 12px/1.3 var(--sans);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
-.top h1{font:600 30px/1.2 var(--serif);margin:4px 0 0;text-wrap:balance}
-.top .meta{font:13px/1.5 var(--sans);color:var(--muted);text-align:right}
-.sync{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:var(--muted)}
-.sync i{width:8px;height:8px;border-radius:50%;background:var(--muted);display:inline-block}
-.sync.team i{background:var(--ok)}
-nav.side{position:sticky;top:calc(env(safe-area-inset-top,0px) + 16px);align-self:start;padding-block:16px 32px;max-height:calc(100vh - 32px);overflow:auto}
-.prog{margin-bottom:18px}
-.prog .lbl{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin-bottom:6px;font-variant-numeric:tabular-nums}
-.bar{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
-.bar b{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
-nav.side ol{list-style:none;margin:0;padding:0;display:grid;gap:2px;counter-reset:s}
-nav.side li a{display:grid;grid-template-columns:26px 1fr;gap:6px;padding:7px 10px;border-radius:6px;text-decoration:none;color:var(--ink);font-size:14px;line-height:1.35}
-nav.side li a span.n{font:500 12px/1.6 var(--mono);color:var(--muted)}
-nav.side li a:hover{background:var(--accent-soft)}
+
+/* ---- fixed sidebar ---- */
+nav.side{position:fixed;left:0;top:0;bottom:0;width:var(--side);background:var(--navy);color:var(--on-navy);display:flex;flex-direction:column;z-index:10;padding-top:env(safe-area-inset-top,0px)}
+.brand{padding:26px 24px 18px}
+.brand b{display:block;font:600 20px/1.2 var(--serif);letter-spacing:.005em}
+.brand span{display:block;font-size:13px;color:var(--on-navy-muted);margin-top:2px}
+.prog{padding:16px 24px 20px;border-bottom:1px solid var(--navy-2);border-top:1px solid var(--navy-2)}
+.prog .lbl{display:flex;justify-content:space-between;align-items:baseline;font-size:13px;color:var(--on-navy-muted);margin-bottom:8px;font-variant-numeric:tabular-nums}
+.prog .lbl strong{font:600 22px/1 var(--serif);color:var(--on-navy)}
+.bar{height:8px;background:var(--navy-2);border-radius:4px;overflow:hidden}
+.bar b{display:block;height:100%;width:0;background:var(--accent);border-radius:4px;transition:width .35s ease}
+.prog small{display:block;margin-top:8px;font-size:12px;color:var(--on-navy-muted)}
+nav.side ol{list-style:none;margin:0;padding:12px 12px 24px;display:grid;gap:1px;overflow-y:auto;flex:1}
+nav.side li a{display:grid;grid-template-columns:24px 1fr;gap:8px;padding:8px 12px;border-radius:6px;text-decoration:none;color:var(--on-navy);font-size:14.5px;line-height:1.35}
+nav.side li a span.n{font-size:12.5px;color:var(--on-navy-muted);font-variant-numeric:tabular-nums;padding-top:1px}
+nav.side li a:hover{background:var(--navy-2)}
 nav.side li a[aria-current="true"]{background:var(--accent);color:var(--accent-ink)}
 nav.side li a[aria-current="true"] span.n{color:var(--accent-ink)}
+.sync{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--on-navy-muted);padding:12px 24px calc(14px + env(safe-area-inset-bottom,0px));border-top:1px solid var(--navy-2)}
+.sync i{width:8px;height:8px;border-radius:50%;background:var(--on-navy-muted);display:inline-block;flex:none}
+.sync.team i{background:var(--ok)}
+
+/* ---- right column ---- */
+.content{margin-left:var(--side);min-width:0;padding-inline:48px}
+.inner{max-width:880px}
+header.hero{padding-block:44px 30px;border-bottom:1px solid var(--line);margin-bottom:36px}
+.hero .org{font-size:14px;color:var(--muted);max-width:60ch;margin:0}
+.hero h1{font:500 46px/1.08 var(--serif);letter-spacing:-.01em;margin:14px 0 10px;text-wrap:balance}
+.hero .who{font-size:16px;color:var(--ink);margin:0}
+.hero .who span{color:var(--muted)}
+.cycle{margin-top:28px}
+.cycle .status{font-size:14px;color:var(--muted);margin:0 0 10px}
+.cycle .status strong{color:var(--ink);font-weight:600}
+.weeks{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:6px}
+.wk{position:relative;padding:12px 12px 10px;border-radius:8px;background:var(--surface);border:1px solid var(--line);min-height:92px}
+.wk .wn{font:600 16px/1.2 var(--serif)}
+.wk .wd{font-size:12.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.wk .wf{font-size:12.5px;line-height:1.35;margin-top:6px;color:var(--ink)}
+.wk.past{background:var(--ok-soft);border-color:transparent}
+.wk.now{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.wk.now .wd,.wk.now .wf{color:var(--accent-ink)}
+.wk .ms{position:absolute;top:10px;right:10px;width:9px;height:9px;border-radius:50%;background:var(--meet)}
+.wk.now .ms{background:var(--accent-ink)}
+.cycle .key{display:flex;gap:16px;flex-wrap:wrap;font-size:12.5px;color:var(--muted);margin-top:8px}
+.cycle .key i{display:inline-block;width:9px;height:9px;border-radius:50%;background:var(--meet);margin-right:6px;vertical-align:0}
+
 .mobnav{display:none}
-main{padding-block:16px 64px;min-width:0}
+main{padding-bottom:40px;min-width:0}
 section.pg{max-width:780px}
 section.pg[hidden]{display:none}
-.pg h2{font:600 28px/1.25 var(--serif);margin:0 0 6px;text-wrap:balance}
-.pg .kicker{font:500 12px/1.3 var(--mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
-.pg h3{font:600 19px/1.3 var(--serif);margin:32px 0 8px;text-wrap:balance}
-.pg h4{font:600 15px/1.4 var(--sans);margin:20px 0 6px}
-.pg p,.pg li{max-width:68ch}
+.pg h2{font:500 34px/1.15 var(--serif);letter-spacing:-.005em;margin:0 0 14px;text-wrap:balance}
+.pg h3{font:600 21px/1.3 var(--serif);margin:36px 0 8px;text-wrap:balance}
+.pg h4{font:600 15.5px/1.4 var(--sans);margin:22px 0 6px}
+.pg p,.pg li{max-width:70ch}
 .pg ul,.pg ol{padding-left:22px}
-.pg li{margin:4px 0}
-.lede{font-size:17px;color:var(--ink)}
+.pg li{margin:5px 0}
+.pg li::marker{color:var(--accent)}
+.lede{font:400 20px/1.5 var(--serif);color:var(--ink)}
 .muted{color:var(--muted)}
-.tbc{display:inline-block;font:500 11px/1.6 var(--sans);letter-spacing:.04em;text-transform:uppercase;background:var(--flag-soft);color:var(--flag);padding:0 7px;border-radius:4px;vertical-align:1px;white-space:nowrap}
+.tbc{display:inline-block;font:600 12px/1.6 var(--sans);background:var(--flag-soft);color:var(--flag);padding:0 8px;border-radius:4px;vertical-align:1px;white-space:nowrap}
 code,.reb{font:500 13px/1.4 var(--mono);background:var(--accent-soft);color:var(--ink);padding:1px 6px;border-radius:4px;white-space:nowrap}
-.callout{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:16px 20px;margin:20px 0}
-.callout.key{border-color:var(--accent);background:var(--accent-soft)}
+.callout{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:18px 22px;margin:22px 0}
+.callout.key{border:0;border-left:4px solid var(--accent);border-radius:0 10px 10px 0;background:var(--accent-soft)}
 .callout h4{margin-top:0}
-.sig{font:italic 500 17px/1.4 var(--serif);margin-top:24px}
+.sig{font:italic 400 22px/1.4 var(--serif);margin-top:28px}
 .tw{overflow-x:auto;margin:14px 0;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
-table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{text-align:left;vertical-align:top;padding:9px 12px;border-bottom:1px solid var(--line)}
-th{font:600 12px/1.4 var(--sans);letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--bg)}
+table{border-collapse:collapse;width:100%;font-size:14.5px}
+th,td{text-align:left;vertical-align:top;padding:10px 14px;border-bottom:1px solid var(--line)}
+th{font:600 13.5px/1.4 var(--sans);color:var(--ink);background:var(--bg)}
 tr:last-child td{border-bottom:0}
 .steps{counter-reset:st;list-style:none;padding-left:0}
-.steps li{counter-increment:st;display:grid;grid-template-columns:30px 1fr;gap:8px;margin:8px 0}
-.steps li::before{content:counter(st);font:500 13px/24px var(--mono);width:24px;height:24px;text-align:center;border-radius:50%;background:var(--accent-soft);color:var(--accent)}
-.journey{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 4px;padding:0;list-style:none}
-.journey li{font-size:13px;background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin:0}
-.journey li:not(:last-child)::after{content:"→";margin-left:10px;color:var(--muted)}
-.ready{margin-top:36px;border-top:2px solid var(--accent);padding-top:14px}
-.ready h4{margin:0 0 8px;font:600 13px/1.4 var(--sans);letter-spacing:.06em;text-transform:uppercase;color:var(--accent)}
-.chk{display:grid;grid-template-columns:22px 1fr;gap:8px;align-items:start;margin:6px 0;cursor:pointer}
-.chk input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--accent)}
+.steps li{counter-increment:st;display:grid;grid-template-columns:32px 1fr;gap:8px;margin:9px 0}
+.steps li::before{content:counter(st);font:600 13px/26px var(--sans);width:26px;height:26px;text-align:center;border-radius:50%;background:var(--navy);color:var(--on-navy)}
+.journey{display:flex;flex-wrap:wrap;gap:6px;margin:12px 0 6px;padding:0;list-style:none}
+.journey li{font-size:13.5px;background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:3px 12px;margin:0}
+.journey li:not(:last-child)::after{content:"›";margin-left:10px;color:var(--accent)}
+.ready{margin-top:40px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 20px}
+.ready h4{margin:0 0 8px;font:600 17px/1.4 var(--serif);color:var(--ink)}
+.chk{display:grid;grid-template-columns:22px 1fr;gap:10px;align-items:start;margin:8px 0;cursor:pointer}
+.chk input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--ok)}
 .chk.done span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
-.pager{display:flex;justify-content:space-between;gap:12px;margin-top:40px;flex-wrap:wrap}
-.pager button{font:500 14px/1.3 var(--sans);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:10px 14px;cursor:pointer;max-width:48%}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:44px;flex-wrap:wrap;max-width:780px}
+.pager button{font:500 14.5px/1.3 var(--sans);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:11px 16px;cursor:pointer;max-width:48%;text-align:left}
+.pager button#next{margin-left:auto;text-align:right}
+.pager button small{display:block;font-size:12px;color:var(--muted)}
 .pager button:hover{border-color:var(--accent)}
 .pager button[hidden]{display:none}
+footer.site{border-top:1px solid var(--line);margin-top:56px;padding-block:22px 36px;font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:6px 24px;justify-content:space-between;max-width:880px}
 /* studies */
 .filters{display:flex;flex-wrap:wrap;gap:8px;margin:12px 0}
-.filters input,.filters select{font:14px var(--sans);padding:8px 10px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0}
+.filters input,.filters select{font:14.5px var(--sans);padding:9px 11px;border:1px solid var(--line);border-radius:8px;background:var(--surface);color:var(--ink);min-width:0}
 .filters input{flex:1 1 220px}
-.pill{display:inline-block;font:500 11.5px/1.7 var(--sans);padding:0 8px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.pill{display:inline-block;font:500 12px/1.7 var(--sans);padding:0 9px;border-radius:999px;background:var(--bg);border:1px solid var(--line);color:var(--muted);white-space:nowrap}
 .pill.pros{background:var(--ok-soft);border-color:transparent;color:var(--ok)}
 .pill.qi{background:var(--meet-soft);border-color:transparent;color:var(--meet)}
 .pill.tc{background:var(--flag-soft);border-color:transparent;color:var(--flag)}
 .count{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
 /* schedule */
-.legend{display:flex;flex-wrap:wrap;gap:8px 16px;font-size:13px;color:var(--muted);margin:10px 0 4px}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;font-size:13px;color:var(--muted);margin:12px 0 4px}
 .legend span{display:inline-flex;align-items:center;gap:6px}
-.legend i{width:10px;height:10px;border-radius:2px;display:inline-block}
-.week{margin-top:28px}
+.legend i{width:12px;height:4px;border-radius:2px;display:inline-block}
+.week{margin-top:30px}
 .week h3{margin-bottom:2px}
-.week .wsub{font-size:14px;color:var(--muted);margin:0 0 8px}
-.day{display:grid;grid-template-columns:110px 1fr 1fr;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:8px 0;overflow:hidden}
-.day .dd{padding:10px 12px;border-right:1px solid var(--line);background:var(--bg)}
-.day .dd b{display:block;font:600 15px/1.2 var(--serif)}
-.day .dd small{font:12px/1.4 var(--mono);color:var(--muted)}
-.day .blk{padding:8px 12px}
+.week .wsub{font-size:14px;color:var(--muted);margin:0 0 10px}
+.day{display:grid;grid-template-columns:104px 1fr 1fr;border:1px solid var(--line);border-radius:10px;background:var(--surface);margin:8px 0;overflow:hidden}
+.day .dd{padding:12px 14px;border-right:1px solid var(--line);background:var(--bg)}
+.day .dd b{display:block;font:600 17px/1.2 var(--serif)}
+.day .dd small{font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}
+.day .blk{padding:10px 14px}
 .day .blk + .blk{border-left:1px solid var(--line)}
-.day .blk .h{font:500 11px/1.5 var(--mono);color:var(--muted);letter-spacing:.04em}
-.day.off{opacity:.75}
-.day.off .blk{grid-column:2 / 4;font-style:italic;color:var(--muted);padding:12px}
-.it{display:grid;grid-template-columns:20px 1fr;gap:6px;align-items:start;margin:5px 0;font-size:13.5px;line-height:1.45}
-.it input{width:16px;height:16px;margin:2px 0 0;accent-color:var(--accent)}
-.it .k{border-left:3px solid var(--line);padding-left:7px}
+.day .blk .h{font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums;margin-bottom:2px}
+.day.off{opacity:.8}
+.day.off .blk{grid-column:2 / 4;font-style:italic;color:var(--muted);padding:14px}
+.it{display:grid;grid-template-columns:20px 1fr;gap:8px;align-items:start;margin:6px 0;font-size:14px;line-height:1.45}
+.it input{width:16px;height:16px;margin:2px 0 0;accent-color:var(--ok)}
+.it .k{border-left:3px solid var(--line);padding-left:8px}
 .it.meet .k{border-color:var(--meet)}
 .it.shadow .k{border-color:var(--accent)}
 .it.train .k{border-color:var(--ok)}
-.it.read .k{border-color:var(--muted)}
+.it.read .k{border-color:var(--read)}
 .it.course .k{border-color:var(--flag)}
-.it .k a{font:500 11.5px var(--mono);text-decoration:none;margin-left:4px}
+.it .k a{font-size:12px;text-decoration:none;margin-left:5px;white-space:nowrap}
 .it.done .k{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line)}
-.standing{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:12px 0}
-.standing div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px}
-.standing div b{display:block;font:500 12px/1.5 var(--mono);color:var(--accent)}
+.standing{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px;margin:14px 0}
+.standing div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;font-size:14px}
+.standing div b{display:block;font:600 15px/1.4 var(--serif);color:var(--ink);margin-bottom:2px}
 .signoff{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
 .signoff .callout{margin:0}
-dl.gl{display:grid;grid-template-columns:minmax(90px,max-content) 1fr;gap:6px 18px;margin:12px 0}
-dl.gl dt{font:500 13.5px/1.6 var(--mono);color:var(--accent)}
+dl.gl{display:grid;grid-template-columns:minmax(96px,max-content) 1fr;gap:7px 20px;margin:12px 0}
+dl.gl dt{font:600 14px/1.6 var(--sans);color:var(--accent)}
 dl.gl dd{margin:0}
+
+@media (max-width:1100px){ .content{padding-inline:32px} .hero h1{font-size:40px} }
 @media (max-width:860px){
-  .wrap{grid-template-columns:minmax(0,1fr);padding-inline:16px;gap:0}
-  header.top{padding-inline:16px}
-  .top .meta{text-align:left}
   nav.side{display:none}
-  .mobnav{display:block;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px;border-bottom:1px solid var(--line)}
+  .content{margin-left:0;padding-inline:16px}
+  header.hero{padding-block:24px 22px;margin-bottom:0;border-bottom:0}
+  .hero h1{font-size:32px}
+  .weeks{grid-template-columns:repeat(5,minmax(0,1fr));gap:4px}
+  .wk{min-height:0;padding:8px 6px}
+  .wk .wf{display:none}
+  .wk .wn{font-size:13px}
+  .wk .wd{font-size:11px}
+  .wk .ms{top:6px;right:6px;width:7px;height:7px}
+  .mobnav{display:block;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);padding-block:10px 12px;border-bottom:1px solid var(--line);margin-bottom:24px}
+  .mobnav .row{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:6px;font-variant-numeric:tabular-nums}
   .mobnav select{width:100%;font:15px var(--sans);padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
-  .mobnav .bar{margin-top:8px}
+  .mobnav .bar{margin-top:8px;background:var(--line)}
   .day{grid-template-columns:1fr}
   .day .dd{border-right:0;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:baseline}
   .day .blk + .blk{border-left:0;border-top:1px solid var(--line)}
   .day.off .blk{grid-column:auto}
-  .pg h2{font-size:24px}
+  .pg h2{font-size:28px}
+  .lede{font-size:18px}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
-<header class="top">
-  <div>
-    <div class="eyebrow">Division of Reproductive Endocrinology &amp; Infertility · UofT ObGyn · Mount Sinai Hospital · Mount Sinai Fertility</div>
-    <h1>REI Research Onboarding</h1>
-  </div>
-  <div class="meta">Andrea Macanović, Clinical Research Assistant<br>September 29 – October 30, 2026 · Preceptors: Swati Dixit &amp; Dr. Jennia Michaeli<br><span class="sync" id="sync"><i></i><span>Progress saved in this browser</span></span></div>
-</header>
-
-<div class="wrap">
 <nav class="side" aria-label="Sections">
-  <div class="prog"><div class="lbl"><span>Onboarding progress</span><span id="pct">0%</span></div><div class="bar"><b id="barfill"></b></div></div>
+  <div class="brand"><b>REI Research</b><span>Onboarding package</span></div>
+  <div class="prog" aria-live="polite">
+    <div class="lbl"><span>Your progress</span><strong id="pct">0%</strong></div>
+    <div class="bar"><b id="barfill"></b></div>
+    <small id="pcount"></small>
+  </div>
   <ol id="toc"></ol>
+  <div class="sync" id="sync"><i></i><span>Progress saved in this browser</span></div>
 </nav>
 
+<div class="content">
+<div class="inner">
+<header class="hero">
+  <p class="org">Division of Reproductive Endocrinology and Infertility, Department of Obstetrics and Gynaecology, University of Toronto. Mount Sinai Hospital and Mount Sinai Fertility.</p>
+  <h1>Andrea's first five weeks on the REI research team</h1>
+  <p class="who">Andrea Macanović, Clinical Research Assistant <span>with preceptors Swati Dixit and Dr. Jennia Michaeli</span></p>
+  <div class="cycle">
+    <p class="status" id="cyclestatus"></p>
+    <div class="weeks" id="weeks"></div>
+    <div class="key"><span><i></i>Milestone: mid-point review, methodology course, final sign-off</span></div>
+  </div>
+</header>
+
 <main>
-<div class="mobnav"><label for="mobsel" class="muted" style="font-size:12px">Section</label><select id="mobsel"></select><div class="bar"><b id="barfill2"></b></div></div>
+<div class="mobnav"><div class="row"><label for="mobsel">Section</label><span id="pct2">0%</span></div><select id="mobsel"></select><div class="bar"><b id="barfill2"></b></div></div>
 
 <!-- 1 -->
 <section class="pg" id="s1" data-title="Welcome">
-  <div class="kicker">Section 1</div>
   <h2>Welcome to the REI Research Team, Andrea</h2>
   <p class="lede">Welcome to the research team of the Division of Reproductive Endocrinology and Infertility (REI), Department of Obstetrics and Gynaecology, University of Toronto, at Mount Sinai Hospital and Mount Sinai Fertility. We're glad you're here.</p>
   <p>Our physicians, fellows, embryologists and trainees run a large and varied research program: clinical trials, prospective cohort studies, chart reviews, qualitative work and quality-improvement projects. As a Clinical Research Assistant, you are what keeps this program running. You make sure patients are approached respectfully, consented properly and followed through their study visits, and that every study stays compliant, funded and well documented.</p>
@@ -199,7 +252,6 @@ dl.gl dd{margin:0}
 
 <!-- 2 -->
 <section class="pg" id="s2" data-title="Who we are" hidden>
-  <div class="kicker">Section 2</div>
   <h2>Who we are: the REI Division</h2>
   <p class="lede">The Division of Reproductive Endocrinology and Infertility is part of the University of Toronto Department of Obstetrics and Gynaecology. Its clinical and research home is Mount Sinai Fertility (MSF) at Mount Sinai Hospital (Sinai Health), with satellite clinics in Vaughan and Mississauga.</p>
   <p>The division trains REI fellows, residents and students, and is one of Canada's largest academic fertility programs. We also run the Clinical Embryology program, the only one in Canada, training future embryologists.</p>
@@ -245,7 +297,6 @@ dl.gl dd{margin:0}
 
 <!-- 3 -->
 <section class="pg" id="s3" data-title="Your role" hidden>
-  <div class="kicker">Section 3</div>
   <h2>Your role</h2>
   <div class="tw"><table>
     <tr><td style="width:150px"><strong>Position</strong></td><td>Clinical Research Assistant (CRA), REI Division research team</td></tr>
@@ -289,7 +340,6 @@ dl.gl dd{margin:0}
 
 <!-- 4 -->
 <section class="pg" id="s4" data-title="People and contacts" hidden>
-  <div class="kicker">Section 4</div>
   <h2>People and contacts</h2>
   <h3>Your preceptors</h3>
   <div class="tw"><table>
@@ -342,7 +392,6 @@ dl.gl dd{margin:0}
 
 <!-- 5 -->
 <section class="pg" id="s5" data-title="Patient recruitment" hidden>
-  <div class="kicker">Section 5</div>
   <h2>Patient recruitment</h2>
   <h3>5.1 Why recruitment matters</h3>
   <p>Every prospective study we run depends on recruitment. A study that doesn't enrol enough participants can't answer its research question, loses funding time, and wastes the effort of the patients who already took part. Many of our studies can only enrol at a specific moment in a patient's treatment, such as before stimulation starts, at the trigger, or at an early pregnancy scan. If that moment is missed, the patient usually can't be enrolled.</p>
@@ -417,7 +466,6 @@ dl.gl dd{margin:0}
 
 <!-- 6 -->
 <section class="pg" id="s6" data-title="Accounts, access and training" hidden>
-  <div class="kicker">Section 6</div>
   <h2>Accounts, access and mandatory training</h2>
   <h3>6.1 Accounts and access</h3>
   <p>Aim to have all of these requested in Week 1. Some take several days to be approved, so request them early.</p>
@@ -465,7 +513,6 @@ dl.gl dd{margin:0}
 
 <!-- 7 -->
 <section class="pg" id="s7" data-title="REB and regulatory" hidden>
-  <div class="kicker">Section 7</div>
   <h2>REB and regulatory</h2>
   <h3>7.1 The basics</h3>
   <p>All human-participant research here needs approval from the <strong>Sinai Health Research Ethics Board (REB)</strong> before any study activity starts, and the approval must stay current for as long as the study runs. Submissions are made through <strong>SHORES</strong>, the REB's online system.</p>
@@ -532,7 +579,6 @@ dl.gl dd{margin:0}
 
 <!-- 8 -->
 <section class="pg" id="s8" data-title="Finance and study funds" hidden>
-  <div class="kicker">Section 8</div>
   <h2>Finance and study funds</h2>
   <h3>8.1 How study money works</h3>
   <p>Each funded study has its own <strong>internal order (IO) or cost centre</strong> at Sinai Health. Every expense, invoice and salary charge for that study is posted to it. Funding comes from several sources:</p>
@@ -573,7 +619,6 @@ dl.gl dd{margin:0}
 
 <!-- 9 -->
 <section class="pg" id="s9" data-title="Agreements and legal" hidden>
-  <div class="kicker">Section 9</div>
   <h2>Agreements and legal</h2>
   <h3>9.1 When an agreement is needed</h3>
   <p>Whenever a study involves another organization (sharing data, sending samples, receiving funding or study drug, or working with other sites), Sinai Health needs a written agreement before that activity can start. The team works with Sinai Health's Legal / Research Contracts office, which negotiates and signs agreements on the institution's behalf.</p>
@@ -611,7 +656,6 @@ dl.gl dd{margin:0}
 
 <!-- 10 -->
 <section class="pg" id="s10" data-title="Systems and data" hidden>
-  <div class="kicker">Section 10</div>
   <h2>Systems and data</h2>
   <h3>10.1 eIVF (the clinic's electronic medical record)</h3>
   <p><strong>What you use it for:</strong> receiving referral tasks, adding study flowsheet labels, writing progress notes about enrolment and study status, and checking where a patient is in their treatment cycle so you contact them at the right time.</p>
@@ -648,7 +692,6 @@ dl.gl dd{margin:0}
 
 <!-- 11 -->
 <section class="pg" id="s11" data-title="Study portfolio" hidden>
-  <div class="kicker">Section 11</div>
   <h2>Study portfolio</h2>
   <p class="muted">Based on the REB MasterFile dated January 2025. It will be refreshed as part of your tracker project (<a href="#s7">Section 7</a>).</p>
   <h3>11.1 What each study type means for your work</h3>
@@ -694,7 +737,6 @@ dl.gl dd{margin:0}
 
 <!-- 12 -->
 <section class="pg" id="s12" data-title="Methodology and education" hidden>
-  <div class="kicker">Section 12</div>
   <h2>Research methodology and education</h2>
   <h3>12.1 Health Research Methodology Course</h3>
   <div class="callout key">
@@ -721,7 +763,6 @@ dl.gl dd{margin:0}
 
 <!-- 13 -->
 <section class="pg" id="s13" data-title="Meetings and calendar" hidden>
-  <div class="kicker">Section 13</div>
   <h2>Meetings and calendar</h2>
   <h3>During onboarding</h3>
   <ul>
@@ -745,7 +786,6 @@ dl.gl dd{margin:0}
 
 <!-- 14 -->
 <section class="pg" id="s14" data-title="Coverage and continuity" hidden>
-  <div class="kicker">Section 14</div>
   <h2>Coverage and continuity</h2>
   <p>Recruitment windows don't pause when someone is away. The team keeps studies running by keeping records current enough that anyone can step in.</p>
   <h3>Every day</h3>
@@ -768,7 +808,6 @@ dl.gl dd{margin:0}
 
 <!-- 15 -->
 <section class="pg" id="s15" data-title="Onboarding schedule" hidden>
-  <div class="kicker">Section 15</div>
   <h2>Onboarding schedule</h2>
   <p>A tentative day-by-day plan, September 29 – October 30. Each day runs 08:00–12:00 and 13:00–16:00, with lunch from 12:00 to 13:00. Tick items as you complete them; the links jump to the section each item covers.</p>
   <div class="standing">
@@ -799,7 +838,6 @@ dl.gl dd{margin:0}
 
 <!-- 16 -->
 <section class="pg" id="s16" data-title="Glossary" hidden>
-  <div class="kicker">Section 16</div>
   <h2>Glossary</h2>
   <h3>Clinical terms</h3>
   <dl class="gl">
@@ -845,6 +883,8 @@ dl.gl dd{margin:0}
 
 <div class="pager"><button id="prev" type="button"></button><button id="next" type="button"></button></div>
 </main>
+<footer class="site"><span>&copy; 2026 Dr. Jennia Michaeli. All rights reserved.</span><span>REI Division research onboarding, prepared for Andrea Macanović</span></footer>
+</div>
 </div>
 
 <script>
@@ -928,11 +968,35 @@ function slug(s){return s.replace(/[^a-z0-9]+/gi,"-").toLowerCase()}
   [fpi,ft].forEach(e=>e.addEventListener("change",draw)); q.addEventListener("input",draw); draw();
 })();
 
+// ---------- five-week cycle strip ----------
+(function(){
+  const wk=[
+    {n:"Week 1",d:"Sep 29 – Oct 2",f:"Orientation, access, training",s:"2026-09-29",e:"2026-10-02"},
+    {n:"Week 2",d:"Oct 5 – 9",f:"Shadowing and study knowledge",s:"2026-10-05",e:"2026-10-09"},
+    {n:"Week 3",d:"Oct 13 – 16",f:"Supervised recruitment, REB",s:"2026-10-13",e:"2026-10-16",m:1},
+    {n:"Week 4",d:"Oct 19 – 23",f:"Independent recruitment, finance",s:"2026-10-19",e:"2026-10-23"},
+    {n:"Week 5",d:"Oct 26 – 30",f:"Methodology course and sign-off",s:"2026-10-26",e:"2026-10-30",m:1}
+  ];
+  const t=new Date(); const today=new Date(t.getFullYear(),t.getMonth(),t.getDate());
+  const P=x=>{const [y,m,d]=x.split("-").map(Number);return new Date(y,m-1,d)};
+  let cur=-1; wk.forEach((w,i)=>{ const endWk=new Date(P(w.e)); endWk.setDate(endWk.getDate()+2); if(today>=P(w.s)&&today<=endWk) cur=i; else if(today>=new Date(P(w.s).getTime()-3*864e5)&&today<P(w.s)) cur=i; });
+  const start=P(wk[0].s), end=P(wk[4].e);
+  const st=document.getElementById("cyclestatus");
+  if(today<start){ const days=Math.round((start-today)/864e5); st.innerHTML="<strong>Starts Tuesday, September 29</strong>"+(days>0?", in "+days+(days===1?" day":" days"):""); cur=-1; }
+  else if(today>end){ st.innerHTML="<strong>Onboarding complete.</strong> Weekly progress meetings with Dr. Michaeli continue from here."; }
+  else if(cur>=0){ st.innerHTML="<strong>Now in "+wk[cur].n.toLowerCase()+"</strong>: "+wk[cur].f.toLowerCase(); }
+  else { st.innerHTML="<strong>September 29 – October 30, 2026</strong>"; }
+  document.getElementById("weeks").innerHTML=wk.map((w,i)=>{
+    const past=today>P(w.e)&&i!==cur, now=i===cur;
+    return `<div class="wk${past?" past":""}${now?" now":""}"${now?' aria-current="step"':""}>${w.m?'<span class="ms" title="Milestone"></span>':""}<div class="wn">${w.n}</div><div class="wd">${w.d}</div><div class="wf">${w.f}</div></div>`;
+  }).join("");
+})();
+
 // ---------- navigation ----------
 const pages=[...document.querySelectorAll("section.pg")];
 const toc=document.getElementById("toc"), mob=document.getElementById("mobsel");
 pages.forEach((p,i)=>{
-  toc.insertAdjacentHTML("beforeend",`<li><a href="#${p.id}" data-p="${p.id}"><span class="n">${String(i+1).padStart(2,"0")}</span><span>${esc(p.dataset.title)}</span></a></li>`);
+  toc.insertAdjacentHTML("beforeend",`<li><a href="#${p.id}" data-p="${p.id}"><span class="n">${String(i+1)}</span><span>${esc(p.dataset.title)}</span></a></li>`);
   mob.insertAdjacentHTML("beforeend",`<option value="${p.id}">${i+1}. ${esc(p.dataset.title)}</option>`);
 });
 const prev=document.getElementById("prev"), next=document.getElementById("next");
@@ -942,8 +1006,8 @@ function show(id,scroll){
   toc.querySelectorAll("a").forEach(a=>a.setAttribute("aria-current",a.dataset.p===pages[i].id?"true":"false"));
   mob.value=pages[i].id;
   prev.hidden=i===0; next.hidden=i===pages.length-1;
-  if(i>0) prev.textContent="← "+pages[i-1].dataset.title;
-  if(i<pages.length-1) next.textContent=pages[i+1].dataset.title+" →";
+  if(i>0) prev.innerHTML="<small>Previous</small>"+esc(pages[i-1].dataset.title);
+  if(i<pages.length-1) next.innerHTML="<small>Next</small>"+esc(pages[i+1].dataset.title);
   prev.dataset.t=i>0?pages[i-1].id:""; next.dataset.t=i<pages.length-1?pages[i+1].id:"";
   try{localStorage.setItem("rei-onb-page",pages[i].id)}catch(e){}
   if(scroll) window.scrollTo({top:0});
@@ -965,6 +1029,8 @@ function paint(){
   document.getElementById("pct").textContent=pct+"%";
   document.getElementById("barfill").style.width=pct+"%";
   document.getElementById("barfill2").style.width=pct+"%";
+  document.getElementById("pct2").textContent=pct+"%";
+  document.getElementById("pcount").textContent=done+" of "+boxes.length+" items complete";
 }
 try{ state=JSON.parse(localStorage.getItem("rei-onb-state")||"{}")||{} }catch(e){ state={} }
 paint();
